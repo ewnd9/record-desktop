@@ -1,15 +1,26 @@
-import { app, globalShortcut, ipcMain } from 'electron';
 import path from 'path';
+import fs from 'fs';
+import { app, globalShortcut, ipcMain } from 'electron';
 import BrowserWindow from 'browser-window';
 import { startRecord, stopRecord } from './record';
-import { NOTIFICATION } from './../shared/constants';
+import { getFolder } from './config';
+import globby from 'globby';
+
+import {
+  NOTIFICATION,
+  IMAGES_REQUEST,
+  IMAGES_RESPONSE,
+  DELETE_IMAGE,
+  UPDATE_IMAGES
+} from './../shared/constants';
 
 let log = console.log.bind(console);
 let mainWindow = null;
 
+export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = text => {
   log(text);
-  mainWindow.webContents.send(NOTIFICATION, { text });
+  emit(NOTIFICATION, { text });
 };
 
 app.on('ready', () => {
@@ -23,13 +34,23 @@ app.on('ready', () => {
   mainWindow.openDevTools();
 
   const hotkeys = [
-    { key: 'ctrl+x', fn: startRecord },
-    { key: 'ctrl+e', fn: stopRecord }
+    { key: 'super+a', fn: startRecord },
+    { key: 'super+d', fn: stopRecord }
   ];
 
   hotkeys.forEach(({ key, fn }) => {
     const result = globalShortcut.register(key, fn);
-    console.log(`${key} register success: ${result}`);
+    log(`${key} register success: ${result}`);
+  });
+
+  ipcMain.on(IMAGES_REQUEST, (event, arg) => {
+    globby(`${getFolder()}/*.gif`)
+      .then(res => event.sender.send(IMAGES_RESPONSE, res));
+  });
+
+  ipcMain.on(DELETE_IMAGE, (event, file) => {
+    fs.unlinkSync(file);
+    emit(UPDATE_IMAGES);
   });
 });
 

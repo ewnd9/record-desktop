@@ -37,13 +37,13 @@ export const createFifo = () => {
   return { onEnd, file };
 };
 
-export const recordGif = (outputName, width, height, x, y) => {
+export const recordGif = (outputFile, width, height, x, y) => {
   const { file, onEnd } = createFifo();
 
   const cmd = 'byzanz-record';
 
   const catCmd = ['-e', `"cat ${file}"`];
-  const gifFile = `/home/ewnd9/${outputName}`;
+  const gifFile = outputFile;
   const coords = typeof width === 'undefined' ? [] : [
     `--x=${x}`,
     `--y=${y}`,
@@ -56,7 +56,8 @@ export const recordGif = (outputName, width, height, x, y) => {
 
   return {
     promise: exec(f),
-    finish: onEnd
+    finish: onEnd,
+    command: f
   };
 };
 

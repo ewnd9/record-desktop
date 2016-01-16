@@ -56,7 +56,24 @@ var config = {
         test: /\.html$/,
         loader: "file?name=[name].[ext]"
       },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
+      {
+        test: function(file) {
+          return file.indexOf('.css') > -1 && file.indexOf('components') === -1;
+        },
+        loaders: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: function(file) {
+          return file.indexOf('.css') > -1 && file.indexOf('components') > -1;
+        },
+        loaders: [
+          'style-loader',
+          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        ]
+      },
       { test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },

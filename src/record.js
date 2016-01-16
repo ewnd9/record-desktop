@@ -1,34 +1,39 @@
-import { notify } from './main';
+import { emit, notify } from './main';
 import { recordGif, rectSelect } from './exec';
+import { getFolder } from './config';
+import { UPDATE_IMAGES } from './../shared/constants';
 
-let g = null;
+let endFn = null;
 
 export const startRecord = () => {
-  if (g !== null) {
+  if (endFn !== null) {
     notify('session in progress');
     return;
   }
 
-  g = () => {};
+  endFn = () => {};
 
   rectSelect()
     .then(([ width, height, x, y ]) => {
-      const output = `${new Date().toISOString()}.gif`;
+      const output = `${getFolder()}/${new Date().toISOString()}.gif`;
       const { promise, finish } = recordGif(output, width, height, x, y);
 
-      notify('Start');
-      g = finish;
+      notify(`Start`);
+      endFn = finish;
 
       return promise;
     })
-    .then(() => notify('Generated'))
+    .then(() => {
+      notify('Generated');
+      emit(UPDATE_IMAGES);
+    })
     .catch(err => notify('Err: ' + err));
 };
 
 export const stopRecord = () => {
-  if (g) {
-    g();
-    g = null;
+  if (endFn) {
+    endFn();
+    endFn = null;
     notify('Finish');
   } else {
     notify('Already finished');
