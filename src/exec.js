@@ -5,7 +5,7 @@ export const exec = (cmd) => {
   return new Promise((resolve, reject) => {
     execAsync(cmd, (err, stdout, stderr) => {
       if (err) {
-        reject({ error, stderr });
+        reject({ err, stderr });
       } else {
         resolve(stdout.trim());
       }
@@ -61,6 +61,24 @@ export const recordGif = (outputFile, width, height, x, y) => {
   };
 };
 
-export const rectSelect = (outputName) => {
-  return exec(`xrectsel`).then(res => res.split(/[\+x]+/));
+export const rectSelect = () => {
+  return exec(`xrectsel`).then(res => {
+    const [width, height, x, y] = res.split(/[\+x]+/);
+    return { width, height, x, y };
+  });
+};
+
+export const getActive = () => {
+  return exec(`xwininfo -id $(xdotool getactivewindow)`)
+    .then(res => {
+      const lines = res.split('\n');
+      const fn = ind => +(lines[ind].split(':')[1].trim());
+
+      return {
+        x: fn(2),
+        y: fn(3),
+        width: fn(6),
+        height: fn(7)
+      };
+    });
 };

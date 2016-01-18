@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, nativeImage, clipboard } from 'electron';
 import {
   IMAGES_REQUEST,
   IMAGES_RESPONSE,
   DELETE_IMAGE,
-  UPDATE_IMAGES
+  UPDATE_IMAGES,
+  COPY_TO_CLIPBOARD
 } from './../../../shared/constants';
 
 import style from './image-list.css';
@@ -28,6 +29,9 @@ export default React.createClass({
   deleteImage: function(image, event) {
     ipcRenderer.send(DELETE_IMAGE, image);
   },
+  copyToClipboard: function(image, event) {
+    ipcRenderer.send(COPY_TO_CLIPBOARD, image);
+  },
   render: function() {
     return (
       <div className={`container-fluid ${style.container}`}>
@@ -36,12 +40,15 @@ export default React.createClass({
               return (
                 <div key={image}>
                   <div className="well well-lg text-center">
-                    <div>
-                      <img src={image} />
+                    <div className={style.imageContainer}>
+                      <img src={`file://${image}`} />
                     </div>
                     <div className={`btn-group ${style.controls}`} role="group" aria-label="...">
                       <button type="button" className="btn btn-default" onClick={this.deleteImage.bind(this, image)}>
                         <span className="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                      </button>
+                      <button type="button" className="btn btn-default" onClick={this.copyToClipboard.bind(this, image)}>
+                        <span className="glyphicon glyphicon-share" aria-hidden="true"></span> Copy to Clipboard
                       </button>
                     </div>
                   </div>
