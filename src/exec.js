@@ -82,3 +82,5 @@ export const getActive = () => {
       };
     });
 };
+
+export const openFile = file => exec(`xdg-open ${file}`);

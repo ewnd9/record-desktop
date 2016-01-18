@@ -6,7 +6,8 @@ import {
   IMAGES_RESPONSE,
   DELETE_IMAGE,
   UPDATE_IMAGES,
-  COPY_TO_CLIPBOARD
+  COPY_TO_CLIPBOARD,
+  OPEN_FILE
 } from './../../../shared/constants';
 
 import style from './image-list.css';
@@ -26,17 +27,15 @@ export default React.createClass({
   loadImages: function() {
     ipcRenderer.send(IMAGES_REQUEST);
   },
-  deleteImage: function(image, event) {
-    ipcRenderer.send(DELETE_IMAGE, image);
-  },
-  copyToClipboard: function(image, event) {
-    ipcRenderer.send(COPY_TO_CLIPBOARD, image);
+  sendMessage: function (event, image) {
+    ipcRenderer.send(event, image); // consistency
   },
   render: function() {
     return (
       <div className={`container-fluid ${style.container}`}>
         { this.state.images.length > 0 && (
             this.state.images.map((image, index) => {
+              const isGif = /\.gif$/.test(image);
               return (
                 <div key={image}>
                   <div className="well well-lg text-center">
@@ -44,11 +43,18 @@ export default React.createClass({
                       <img src={`file://${image}`} />
                     </div>
                     <div className={`btn-group ${style.controls}`} role="group" aria-label="...">
-                      <button type="button" className="btn btn-default" onClick={this.deleteImage.bind(this, image)}>
-                        <span className="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                      <button type="button" className="btn btn-default" onClick={this.sendMessage.bind(this, OPEN_FILE, image)}>
+                        <span className="glyphicon glyphicon-open" aria-hidden="true"></span> Open File
                       </button>
-                      <button type="button" className="btn btn-default" onClick={this.copyToClipboard.bind(this, image)}>
-                        <span className="glyphicon glyphicon-share" aria-hidden="true"></span> Copy to Clipboard
+                      {
+                        !isGif && (
+                          <button type="button" className="btn btn-default" onClick={this.sendMessage.bind(this, COPY_TO_CLIPBOARD, image)}>
+                            <span className="glyphicon glyphicon-share" aria-hidden="true"></span> Copy to Clipboard
+                          </button>
+                        )
+                      }
+                      <button type="button" className="btn btn-default" onClick={this.sendMessage.bind(this, DELETE_IMAGE, image)}>
+                        <span className="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
                       </button>
                     </div>
                   </div>

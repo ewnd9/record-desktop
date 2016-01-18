@@ -10,6 +10,7 @@ import {
   screenActive,
   copyToClipboard,
 } from './record';
+import { openFile } from './exec';
 import { getFolder } from './config';
 import globby from 'globby';
 
@@ -19,7 +20,8 @@ import {
   IMAGES_RESPONSE,
   DELETE_IMAGE,
   UPDATE_IMAGES,
-  COPY_TO_CLIPBOARD
+  COPY_TO_CLIPBOARD,
+  OPEN_FILE
 } from './../shared/constants';
 
 let log = console.log.bind(console);
@@ -69,13 +71,8 @@ app.on('ready', () => {
     emit(UPDATE_IMAGES);
   });
 
-  ipcMain.on(COPY_TO_CLIPBOARD, (event, file) => {
-    if (/\.gif/.test(file)) {
-      notify('Gif Clipboard is not Supported');
-    } else {
-      copyToClipboard(file);
-    }
-  });
+  ipcMain.on(COPY_TO_CLIPBOARD, (event, file) => copyToClipboard(file));
+  ipcMain.on(OPEN_FILE, (event, file) => openFile(file));
 });
 
 app.on('will-quit', function() {

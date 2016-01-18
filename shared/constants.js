@@ -4,3 +4,4 @@ module.exports.IMAGES_RESPONSE = 'IMAGES_RESPONSE';
 module.exports.DELETE_IMAGE = 'DELETE_IMAGE';
 module.exports.UPDATE_IMAGES = 'UPDATE_IMAGES';
 module.exports.COPY_TO_CLIPBOARD = 'COPY_TO_CLIPBOARD';
+module.exports.OPEN_FILE = 'OPEN_FILE';
