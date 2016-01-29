@@ -5,6 +5,7 @@ import BrowserWindow from 'browser-window';
 import { openFile } from './exec';
 import { getFolder } from './config';
 import globby from 'globby';
+import winston from 'winston';
 
 import {
   app,
@@ -34,6 +35,15 @@ import {
   OPEN_FILE
 } from './../shared/constants';
 
+const logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)(),
+    new (winston.transports.File)({ filename: '/tmp/journal' })
+  ]
+});
+
+const log = logger.info.bind(logger);
+
 export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
   log(text, err || '');
@@ -42,7 +52,6 @@ export const notify = (text, err) => {
 
 let mainWindow;
 let appIcon;
-let log = console.log.bind(console);
 
 process.title = 'Journal';
 
@@ -57,9 +66,9 @@ app.on('ready', () => {
     mainWindow.openDevTools();
   }
 
-  mainWindow.on('closed', () => mainWindow = null);
   mainWindow.on('minimize', () => mainWindow.setSkipTaskbar(true));
   mainWindow.on('restore', () => mainWindow.setSkipTaskbar(false));
+  mainWindow.on('closed', () => mainWindow = appIcon = null);
 
   appIcon = new Tray(path.resolve(__dirname + '/../icon.png'));
   appIcon.on('click', () => mainWindow.isMinimized() ? mainWindow.restore() : mainWindow.minimize());
@@ -74,7 +83,7 @@ app.on('ready', () => {
 
   hotkeys.forEach(({ key, fn }) => {
     const result = globalShortcut.register(key, () => {
-      console.log(key); // it won't work if i delete this line (GC?)
+      log(key); // it won't work if i delete this line (GC?)
       return fn().catch(err => notify('Error', err));
     });
     log(`${key} register success: ${result}`);
@@ -95,5 +104,6 @@ app.on('ready', () => {
 });
 
 app.on('will-quit', function() {
+  mainWindow = appIcon = null;
   globalShortcut.unregisterAll();
 });
