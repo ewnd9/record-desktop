@@ -1,7 +1,20 @@
 import path from 'path';
 import fs from 'fs';
-import { app, globalShortcut, ipcMain, nativeImage, clipboard } from 'electron';
 import BrowserWindow from 'browser-window';
+
+import { openFile } from './exec';
+import { getFolder } from './config';
+import globby from 'globby';
+
+import {
+  app,
+  globalShortcut,
+  ipcMain,
+  nativeImage,
+  clipboard,
+  Tray
+} from 'electron';
+
 import {
   startRecordArea,
   startRecordActive,
@@ -10,9 +23,6 @@ import {
   screenActive,
   copyToClipboard,
 } from './record';
-import { openFile } from './exec';
-import { getFolder } from './config';
-import globby from 'globby';
 
 import {
   NOTIFICATION,
@@ -24,26 +34,35 @@ import {
   OPEN_FILE
 } from './../shared/constants';
 
-let log = console.log.bind(console);
-let mainWindow = null;
-
-process.title = 'Journal';
-
 export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
   log(text, err || '');
   emit(NOTIFICATION, { text });
 };
 
-app.on('ready', () => {
-  const html = process.env.NODE_ENV === 'development' ? 'index-dev.html' : 'index.html';
+let mainWindow;
+let appIcon;
+let log = console.log.bind(console);
 
-  mainWindow = new BrowserWindow({ width: 1200, height: 900 });
-  mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', html));
-  mainWindow.on('closed', function () {
-    mainWindow = null;
-  });
-  mainWindow.openDevTools();
+process.title = 'Journal';
+
+app.on('ready', () => {
+  if (process.env.NODE_ENV === 'production') {
+    mainWindow = new BrowserWindow({ width: 800, height: 900 });
+    mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', 'index.html'));
+    mainWindow.minimize();
+  } else {
+    mainWindow = new BrowserWindow({ width: 1200, height: 900 });
+    mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', 'index-dev.html'));
+    mainWindow.openDevTools();
+  }
+
+  mainWindow.on('closed', () => mainWindow = null);
+  mainWindow.on('minimize', () => mainWindow.setSkipTaskbar(true));
+  mainWindow.on('restore', () => mainWindow.setSkipTaskbar(false));
+
+  appIcon = new Tray(path.resolve(__dirname + '/../icon.png'));
+  appIcon.on('click', () => mainWindow.isMinimized() ? mainWindow.restore() : mainWindow.minimize());
 
   const hotkeys = [
     { key: 'super+a', fn: startRecordArea },
