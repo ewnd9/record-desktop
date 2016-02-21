@@ -16,6 +16,7 @@ import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
 
 import ImageList from './components/image-list/image-list';
 import Settings from './components/settings/settings';
+import Binaries from './components/binaries/binaries';
 
 const history = hashHistory;
 
@@ -34,12 +35,21 @@ const App = React.createClass({
         <div className="settings-bar">
           {
             this.state.path === '/' && (
-              <Link to={`/settings`}>
-                <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </Link>
+              <div>
+                <div>
+                  <Link to={`/settings`}>
+                    <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                  </Link>
+                </div>
+                <div>
+                  <Link to={`/binaries`}>
+                    <span className="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                  </Link>
+                </div>
+              </div>
             ) || (
               <Link to={`/`}>
-                <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
               </Link>
             )
           }
@@ -56,5 +66,6 @@ ReactDOM.render(<Router history={history}>
   <Route path="/" component={App}>
     <IndexRoute component={ImageList} />
     <Route path="settings" component={Settings} />
+    <Route path="binaries" component={Binaries} />
   </Route>
 </Router>, document.getElementById('root'));

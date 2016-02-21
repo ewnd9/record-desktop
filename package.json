@@ -33,7 +33,9 @@
   "dependencies": {
     "globby": "^4.0.0",
     "mkdirp": "^0.5.1",
+    "pify": "^2.3.0",
     "user-home": "^2.0.0",
+    "whereis": "^0.4.0",
     "winston": "^2.1.1"
   },
   "devDependencies": {
