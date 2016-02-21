@@ -35,6 +35,8 @@ import {
   OPEN_FILE
 } from './../shared/constants';
 
+import * as registerShortcuts from './register-shortcuts';
+
 const logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)(),
@@ -76,21 +78,7 @@ app.on('ready', () => {
     mainWindow.isMinimized() ? mainWindow.restore() : mainWindow.minimize()
   });
 
-  const hotkeys = [
-    { key: 'super+a', fn: startRecordArea },
-    { key: 'super+z', fn: startRecordActive },
-    { key: 'super+d', fn: stopRecord },
-    { key: 'super+s', fn: screenArea },
-    { key: 'super+x', fn: screenActive }
-  ];
-
-  hotkeys.forEach(({ key, fn }) => {
-    const result = globalShortcut.register(key, () => {
-      log(key); // it won't work if i delete this line (GC?)
-      return fn().catch(err => notify('Error', err));
-    });
-    log(`${key} register success: ${result}`);
-  });
+  registerShortcuts.registerAll();
 
   ipcMain.on(IMAGES_REQUEST, (event, arg) => {
     globby([`${getFolder()}/*\.gif`, `${getFolder()}/*\.png`])

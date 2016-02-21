@@ -24,6 +24,10 @@ export default React.createClass({
     });
     this.loadImages();
   },
+  componentWillUnmount: function() {
+    ipcRenderer.removeAllListeners(IMAGES_RESPONSE);
+    ipcRenderer.removeAllListeners(UPDATE_IMAGES);
+  },
   loadImages: function() {
     ipcRenderer.send(IMAGES_REQUEST);
   },

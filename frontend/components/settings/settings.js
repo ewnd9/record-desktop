@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './style.css';
 import remote from 'remote';
 
-const { register, unregister } = remote.require(process.env.APP_DIR + '/dist/register-shortcuts');
+const { register, unregister, actions } = remote.require(process.env.APP_DIR + '/dist/register-shortcuts');
 
 const Input = React.createClass({
   getInitialState() {
@@ -12,7 +12,7 @@ const Input = React.createClass({
     unregister(this.state.active);
 
     const combo = event.target.value;
-    const isCorrect = register('asd', combo);
+    const isCorrect = register(this.props.action, combo);
 
     if (isCorrect) {
       this.setState({ isCorrect, active: combo });
@@ -43,31 +43,15 @@ const Input = React.createClass({
 
 export default React.createClass({
   getInitialState() {
-    const RECORD_AREA = 'RECORD_AREA';
-    const RECORD_ACTIVE = 'RECORD_ACTIVE';
-    const STOP = 'STOP';
-    const SCREEN_AREA = 'SCREEN_AREA';
-    const SCREEN_ACTIVE = 'SCREEN_ACTIVE';
-
-    const obj = (label, combo) => ({ label, combo });
-
-    const actions = {
-      [RECORD_AREA]: obj('Start recording an area', 'super+a'),
-      [RECORD_ACTIVE]: obj('Start recording an active window', 'super+z'),
-      [STOP]: obj('Stop recording', 'super+d'),
-      [SCREEN_AREA]: obj('Take a screenshot of an area', 'super+s'),
-      [SCREEN_ACTIVE]: obj('Take a screenshot of an active window', 'super+x')
-    };
-
     return { actions };
   },
   render() {
     return (
       <div className={styles.container}>
         {
-          Object.keys(this.state.actions).map(key => {
+          Object.keys(actions).map(key => {
             const { label, combo } = this.state.actions[key];
-            return <Input key={label} label={label} combo={combo} />;
+            return <Input key={label} label={label} combo={combo} action={key} />;
           })
         }
       </div>
