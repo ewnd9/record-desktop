@@ -32,7 +32,7 @@ export default React.createClass({
   },
   render: function() {
     return (
-      <div className={`container-fluid ${style.container}`}>
+      <div>
         { this.state.images.length > 0 && (
             this.state.images.map((image, index) => {
               const isGif = /\.gif$/.test(image);

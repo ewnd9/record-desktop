@@ -12,12 +12,12 @@ ipcRenderer.on(NOTIFICATION, (event, { text }) => {
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link, IndexRoute, createMemoryHistory } from 'react-router';
+import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
 
 import ImageList from './components/image-list/image-list';
 import Settings from './components/settings/settings';
 
-const history = createMemoryHistory();
+const history = hashHistory;
 
 const App = React.createClass({
   getInitialState() {
@@ -44,7 +44,7 @@ const App = React.createClass({
             )
           }
         </div>
-        <div className="main">
+        <div className="main container-fluid">
           {this.props.children}
         </div>
       </div>

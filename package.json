@@ -48,6 +48,7 @@
     "bootstrap": "^3.3.6",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
+    "lodash": "^4.5.0",
     "nodemon": "^1.8.1",
     "npm-run-all": "^1.4.0",
     "react": "^0.14.6",

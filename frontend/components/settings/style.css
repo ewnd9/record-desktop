@@ -1,0 +1,14 @@
+.container {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.input {
+  margin: 15px auto 0;
+}
+
+.input > input {
+  margin-top: 10px;
+  text-align: center;
+}
