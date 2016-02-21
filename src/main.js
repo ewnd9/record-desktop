@@ -71,7 +71,10 @@ app.on('ready', () => {
   mainWindow.on('closed', () => mainWindow = appIcon = null);
 
   appIcon = new Tray(path.resolve(__dirname + '/../icon.png'));
-  appIcon.on('click', () => mainWindow.isMinimized() ? mainWindow.restore() : mainWindow.minimize());
+  appIcon.on('click', () => {
+    log('click appIcon');
+    mainWindow.isMinimized() ? mainWindow.restore() : mainWindow.minimize()
+  });
 
   const hotkeys = [
     { key: 'super+a', fn: startRecordArea },

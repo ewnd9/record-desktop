@@ -9,6 +9,7 @@ $ npm install
 ## Usage
 
 ```
+$ npm run build:watch
 $ npm start
 ```
 

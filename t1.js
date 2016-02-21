@@ -21,10 +21,14 @@
 //
 // setTimeout(() => fn(0), 0);
 // setTimeout(() => fn(1), 5000);
-import { getActive } from './src/exec';
-
-getActive()
-  .then(res => {
-    console.log(res);
-  })
-  .catch(err => console.log(err));
+// import { getActive } from './src/exec';
+//
+// getActive()
+//   .then(res => {
+//     console.log(res);
+//   })
+//   .catch(err => console.log(err));
+var whereis = require('whereis');
+whereis('wgeta', function(err, path) {
+  console.log(path);
+});

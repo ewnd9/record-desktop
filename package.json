@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/main.js",
   "scripts": {
-    "start": "NODE_ENV=production electron ./dist/main.js",
+    "start": "NODE_ENV=development electron ./dist/main.js",
     "test": "ava",
     "test:watch": "nodemon --exec ava",
     "prebuild": "rm -rf dist && mkdir dist",
