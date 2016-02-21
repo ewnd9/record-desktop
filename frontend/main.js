@@ -12,15 +12,49 @@ ipcRenderer.on(NOTIFICATION, (event, { text }) => {
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, Link, IndexRoute, createMemoryHistory } from 'react-router';
+
 import ImageList from './components/image-list/image-list';
+import Settings from './components/settings/settings';
 
-const app = <div>
-  <div className="settings-bar">
-    <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
-  </div>
-  <div className="main">
-    <ImageList />
-  </div>
-</div>;
+const history = createMemoryHistory();
 
-ReactDOM.render(app, document.getElementById('root'));
+const App = React.createClass({
+  getInitialState() {
+    return { path: '/' }
+  },
+  componentDidMount() {
+    history.listen(path => {
+      this.setState({ path: path.pathname });
+    });
+  },
+  render() {
+    return (
+      <div>
+        <div className="settings-bar">
+          {
+            this.state.path === '/' && (
+              <Link to={`/settings`}>
+                <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </Link>
+            ) || (
+              <Link to={`/`}>
+                <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </Link>
+            )
+          }
+        </div>
+        <div className="main">
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(<Router history={history}>
+  <Route path="/" component={App}>
+    <IndexRoute component={ImageList} />
+    <Route path="settings" component={Settings} />
+  </Route>
+</Router>, document.getElementById('root'));
