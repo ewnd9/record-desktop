@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import BrowserWindow from 'browser-window';
 
-import { openFile } from './exec';
+import openFile from './wrappers/xdg-open';
 import { getFolder } from './config';
 import globby from 'globby';
 import winston from 'winston';
@@ -56,6 +56,9 @@ let mainWindow;
 let appIcon;
 
 process.title = 'Journal';
+process.on('unhandledRejection', err => {
+  console.log(err.stack);
+});
 
 app.on('ready', () => {
   if (process.env.NODE_ENV === 'production') {

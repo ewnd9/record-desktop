@@ -1,8 +1,13 @@
 import { emit, notify } from './main';
-import { recordGif, rectSelect, exec, getActive, openFile } from './exec';
 import { getFolder } from './config';
 import { UPDATE_IMAGES } from './../shared/constants';
 import { nativeImage, clipboard } from 'electron';
+
+import recordGif from './wrappers/byzanz-record';
+import rectSelect from './wrappers/slop';
+import getActive from './wrappers/xwininfo';
+import xwd from './wrappers/xwd';
+import openFile from './wrappers/xdg-open';
 
 const getOutputFile = ext => `${getFolder()}/${new Date().toISOString()}.${ext}`;
 
@@ -13,7 +18,7 @@ const checkIfRunning = cb => {
     return Promise.reject('Session is in progress');
   }
 
-  endFn = () => {};
+  endFn = null;
   return Promise.resolve();
 };
 
@@ -60,7 +65,7 @@ export const screenArea = () => rectSelect().then(takeScreen);
 const takeScreen = ({ x, y, width, height }) => {
   const outputFile = getOutputFile('png');
 
-  return exec(`xwd -silent -root | convert - -crop ${width}x${height}+${x}+${y} ${outputFile}`)
+  return xwd(width, height, x, y, outputFile)
     .then(() => {
       copyToClipboard(outputFile);
       emit(UPDATE_IMAGES);

@@ -28,7 +28,6 @@
 //     console.log(res);
 //   })
 //   .catch(err => console.log(err));
-var whereis = require('whereis');
-whereis('wgeta', function(err, path) {
-  console.log(path);
-});
+require('./dist/wrappers/xwininfo')
+  .default()
+  .then(data => console.log(data));

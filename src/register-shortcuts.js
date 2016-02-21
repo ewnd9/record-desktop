@@ -2,6 +2,8 @@ import {
   globalShortcut,
 } from 'electron';
 
+import { emit, notify } from './main';
+
 import {
   startRecordArea,
   startRecordActive,
