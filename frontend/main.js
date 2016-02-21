@@ -14,4 +14,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ImageList from './components/image-list/image-list';
 
-ReactDOM.render(<ImageList />, document.getElementById('root'));
+const app = <div>
+  <div className="settings-bar">
+    <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
+  </div>
+  <div className="main">
+    <ImageList />
+  </div>
+</div>;
+
+ReactDOM.render(app, document.getElementById('root'));
