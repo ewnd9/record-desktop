@@ -55,6 +55,11 @@ export const notify = (text, err) => {
 let mainWindow;
 let appIcon;
 
+const defaultIcon = path.resolve(__dirname + '/../icon.png');
+const recordingIcon = path.resolve(__dirname + '/../icon-recording.png');
+
+export const setIcon = isRecording => appIcon.setImage(isRecording ? recordingIcon : defaultIcon);
+
 process.title = 'Journal';
 process.on('unhandledRejection', err => {
   console.log(err.stack);
@@ -75,7 +80,7 @@ app.on('ready', () => {
   mainWindow.on('restore', () => mainWindow.setSkipTaskbar(false));
   mainWindow.on('closed', () => mainWindow = appIcon = null);
 
-  appIcon = new Tray(path.resolve(__dirname + '/../icon.png'));
+  appIcon = new Tray(defaultIcon);
   appIcon.on('click', () => {
     log('click appIcon');
     mainWindow.isMinimized() ? mainWindow.restore() : mainWindow.minimize()

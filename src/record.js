@@ -1,4 +1,4 @@
-import { emit, notify } from './main';
+import { emit, notify, setDefaultIcon, setIcon } from './main';
 import { getFolder } from './config';
 import { UPDATE_IMAGES } from './../shared/constants';
 import { nativeImage, clipboard } from 'electron';
@@ -29,6 +29,8 @@ const takeGif = ({ width, height, x, y }) => {
   notify(`Start`);
   endFn = finish;
 
+  setIcon(true);
+
   return promise
     .then(() => {
       notify('Generated');
@@ -46,6 +48,8 @@ export const stopRecord = () => {
     endFn();
     endFn = null;
     notify('Finish');
+
+    setIcon(false);
   } else {
     notify('Already finished');
   }
