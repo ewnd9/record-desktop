@@ -5,3 +5,5 @@ module.exports.DELETE_IMAGE = 'DELETE_IMAGE';
 module.exports.UPDATE_IMAGES = 'UPDATE_IMAGES';
 module.exports.COPY_TO_CLIPBOARD = 'COPY_TO_CLIPBOARD';
 module.exports.OPEN_FILE = 'OPEN_FILE';
+module.exports.SELECT_FOLDER = 'SELECT_FOLDER';
+module.exports.UPDATE_FOLDER = 'UPDATE_FOLDER';

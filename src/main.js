@@ -3,7 +3,7 @@ import fs from 'fs';
 import BrowserWindow from 'browser-window';
 
 import openFile from './wrappers/xdg-open';
-import { getFolder } from './config';
+import * as config from './config';
 import globby from 'globby';
 import winston from 'winston';
 
@@ -13,7 +13,8 @@ import {
   ipcMain,
   nativeImage,
   clipboard,
-  Tray
+  Tray,
+  dialog
 } from 'electron';
 
 import {
@@ -32,7 +33,9 @@ import {
   DELETE_IMAGE,
   UPDATE_IMAGES,
   COPY_TO_CLIPBOARD,
-  OPEN_FILE
+  OPEN_FILE,
+  SELECT_FOLDER,
+  UPDATE_FOLDER
 } from './../shared/constants';
 
 import * as registerShortcuts from './register-shortcuts';
@@ -89,7 +92,7 @@ app.on('ready', () => {
   registerShortcuts.registerAll();
 
   ipcMain.on(IMAGES_REQUEST, (event, arg) => {
-    globby([`${getFolder()}/*\.gif`, `${getFolder()}/*\.png`])
+    globby([`${config.getFolder()}/*\.gif`, `${config.getFolder()}/*\.png`])
       .then(res => event.sender.send(IMAGES_RESPONSE, res));
   });
 
@@ -100,6 +103,14 @@ app.on('ready', () => {
 
   ipcMain.on(COPY_TO_CLIPBOARD, (event, file) => copyToClipboard(file));
   ipcMain.on(OPEN_FILE, (event, file) => openFile(file));
+  ipcMain.on(SELECT_FOLDER, event => {
+    const result = dialog.showOpenDialog({ properties: [ 'openDirectory' ] });
+
+    if (result) {
+      config.setFolder(result[0]);
+      event.sender.send(UPDATE_FOLDER);
+    }
+  })
 });
 
 app.on('will-quit', function() {

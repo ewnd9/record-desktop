@@ -1,14 +1,9 @@
 import userHome from 'user-home';
 import fs from 'fs';
-import mkdirp from 'mkdirp';
+import Configstore from 'configstore';
 
-export const ensureFolderExists = folder => {
-  if (!fs.existsSync(folder)) {
-    mkdirp(folder);
-  }
-};
+const conf = new Configstore('journal-desktop', { isFirstRun: true });
+export const path = conf.path;
 
-const folder = userHome + '/Journal';
-ensureFolderExists(folder);
-
-export const getFolder = () => folder;
+export const getFolder = () => conf.get('folder');
+export const setFolder = folder => conf.set('folder', folder);
