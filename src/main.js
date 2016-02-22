@@ -12,8 +12,9 @@ import {
   ipcMain,
   nativeImage,
   clipboard,
+  dialog,
   Tray,
-  dialog
+  Menu
 } from 'electron';
 
 import {
@@ -61,7 +62,7 @@ process.on('unhandledRejection', err => {
 
 app.on('ready', () => {
   if (process.env.NODE_ENV === 'production') {
-    mainWindow = new BrowserWindow({ width: 800, height: 900 });
+    mainWindow = new BrowserWindow({ width: 800, height: 900, show: false });
     mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', 'index.html'));
     mainWindow.minimize();
   } else {
@@ -70,15 +71,32 @@ app.on('ready', () => {
     mainWindow.openDevTools();
   }
 
-  mainWindow.on('minimize', () => mainWindow.setSkipTaskbar(true));
-  mainWindow.on('restore', () => mainWindow.setSkipTaskbar(false));
+  mainWindow.on('minimize', () => {
+    mainWindow.setSkipTaskbar(true)
+    log('minimize');
+  });
+
   mainWindow.on('closed', () => mainWindow = appIcon = null);
 
   appIcon = new Tray(defaultIcon);
   appIcon.on('click', () => {
-    log('click appIcon');
-    mainWindow.isMinimized() ? mainWindow.restore() : mainWindow.minimize()
+    log('click appIcon ' + mainWindow.isMinimized());
+
+    if (mainWindow.isMinimized()) {
+      mainWindow.show();
+      mainWindow.setSkipTaskbar(false);
+
+      log('restore');
+    } else {
+      mainWindow.minimize();
+    }
   });
+
+  appIcon.setContextMenu(Menu.buildFromTemplate([
+    { label: 'Browse Images', click: () => openFile(config.getFolder()) },
+    { type: 'separator' },
+    { label: 'Settings', click: () => mainWindow.restore() }
+  ]));
 
   registerShortcuts.registerAll();
 
