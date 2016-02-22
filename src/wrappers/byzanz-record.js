@@ -1,4 +1,4 @@
-import { exec } from './utils';
+import { exec } from '../utils';
 import createFifo from './mkfifo';
 
 export default function byzanzRecord(outputFile, width, height, x, y) {

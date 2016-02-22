@@ -1,4 +1,4 @@
-import { exec } from './utils';
+import { exec } from '../utils';
 
 export default function slop() {
   return exec(`slop`).then(res => {

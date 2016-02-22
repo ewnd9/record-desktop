@@ -1,4 +1,4 @@
-import { exec } from './utils';
+import { exec } from '../utils';
 
 export default function xwininfo() {
   return exec(`xwininfo -id $(xdotool getactivewindow)`)

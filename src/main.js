@@ -5,7 +5,6 @@ import BrowserWindow from 'browser-window';
 import openFile from './wrappers/xdg-open';
 import * as config from './config';
 import globby from 'globby';
-import winston from 'winston';
 
 import {
   app,
@@ -39,15 +38,7 @@ import {
 } from './../shared/constants';
 
 import * as registerShortcuts from './register-shortcuts';
-
-const logger = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Console)(),
-    new (winston.transports.File)({ filename: '/tmp/journal' })
-  ]
-});
-
-const log = logger.info.bind(logger);
+import { log } from './utils';
 
 export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
@@ -65,7 +56,7 @@ export const setIcon = isRecording => appIcon.setImage(isRecording ? recordingIc
 
 process.title = 'Journal';
 process.on('unhandledRejection', err => {
-  console.log(err.stack);
+  log(err.stack);
 });
 
 app.on('ready', () => {
@@ -90,16 +81,6 @@ app.on('ready', () => {
   });
 
   registerShortcuts.registerAll();
-
-  ipcMain.on(IMAGES_REQUEST, (event, arg) => {
-    globby([`${config.getFolder()}/*\.gif`, `${config.getFolder()}/*\.png`])
-      .then(res => event.sender.send(IMAGES_RESPONSE, res));
-  });
-
-  ipcMain.on(DELETE_IMAGE, (event, file) => {
-    fs.unlinkSync(file);
-    emit(UPDATE_IMAGES);
-  });
 
   ipcMain.on(COPY_TO_CLIPBOARD, (event, file) => copyToClipboard(file));
   ipcMain.on(OPEN_FILE, (event, file) => openFile(file));

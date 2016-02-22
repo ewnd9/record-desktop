@@ -1,4 +1,5 @@
 import { exec as _execAsync, spawn as _spawnAsync } from 'child_process';
+import winston from 'winston';
 
 export const execAsync = _execAsync;
 export const spawnAsync = _spawnAsync;
@@ -27,3 +28,12 @@ export const spawn = (cmd, args) => {
     proc.on('exit', () => resolve());
   });
 };
+
+const logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)(),
+    new (winston.transports.File)({ filename: '/tmp/journal' })
+  ]
+});
+
+export const log = logger.info.bind(logger);

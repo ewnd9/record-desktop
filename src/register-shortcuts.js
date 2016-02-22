@@ -1,8 +1,6 @@
-import {
-  globalShortcut,
-} from 'electron';
-
+import { globalShortcut } from 'electron';
 import { emit, notify } from './main';
+import { log } from './utils';
 
 import {
   startRecordArea,
@@ -46,11 +44,11 @@ export const register = (action, combo) => {
 
   try {
     const result = globalShortcut.register(combo, () => {
-      console.log(`press ${combo}`); // it won't work if i delete this line (GC?)
+      log(`press ${combo}`); // it won't work if i delete this line (GC?)
       return fnMappings[action]().catch(err => notify('Error', err));
     });
 
-    console.log(`${combo} register success: ${result}`);
+    log(`${combo} register success: ${result}`);
     return result;
   } catch (e) {
     return false;

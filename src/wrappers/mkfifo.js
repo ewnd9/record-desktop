@@ -1,4 +1,4 @@
-import { exec, execSync, spawnAsync } from './utils';
+import { exec, execSync, spawnAsync } from '../utils';
 
 import path from 'path';
 
