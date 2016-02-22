@@ -6,11 +6,11 @@ import { SELECT_FOLDER, UPDATE_FOLDER } from './../../../shared/constants';
 import { ipcRenderer } from 'electron';
 
 const { register, unregister, actions } = remote.require(process.env.APP_DIR + '/dist/register-shortcuts');
-const { getFolder, path } = remote.require(process.env.APP_DIR + '/dist/config');
+const { getFolder, path, getCombo, setCombo } = remote.require(process.env.APP_DIR + '/dist/config');
 
 const Input = React.createClass({
   getInitialState() {
-    return { isCorrect: true, active: this.props.combo };
+    return { isCorrect: true, active: getCombo(this.props.action) };
   },
   onKeyPress(event) {
     unregister(this.state.active);
@@ -19,13 +19,14 @@ const Input = React.createClass({
     const isCorrect = register(this.props.action, combo);
 
     if (isCorrect) {
+      setCombo(this.props.action, combo);
       this.setState({ isCorrect, active: combo });
     } else {
       this.setState({ isCorrect });
     }
   },
   render() {
-    const { label, combo } = this.props;
+    const { label, action } = this.props;
 
     return (
       <div className={`form-group form-group-lg ${styles.input} ${this.state.isCorrect ? '' : 'has-error'}`}>
@@ -38,7 +39,7 @@ const Input = React.createClass({
                type="text"
                className="form-control"
                placeholder="Enter the combination"
-               defaultValue={combo}
+               defaultValue={this.state.active}
                onChange={this.onKeyPress} />
       </div>
     );

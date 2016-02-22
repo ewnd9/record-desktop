@@ -13,6 +13,8 @@ import {
   copyToClipboard,
 } from './record';
 
+import { getCombo } from './config';
+
 const RECORD_AREA = 'RECORD_AREA';
 const RECORD_ACTIVE = 'RECORD_ACTIVE';
 const STOP = 'STOP';
@@ -38,6 +40,10 @@ const fnMappings = {
 };
 
 export const register = (action, combo) => {
+  if (combo.indexOf('+') === -1) {
+    return false;
+  }
+
   try {
     const result = globalShortcut.register(combo, () => {
       console.log(`press ${combo}`); // it won't work if i delete this line (GC?)
@@ -53,7 +59,7 @@ export const register = (action, combo) => {
 
 export const registerAll = () => {
   Object.keys(fnMappings).forEach(action => {
-    const combo = actions[action].combo;
+    const combo = getCombo(action);
     register(action, combo);
   });
 };
