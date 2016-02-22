@@ -1,6 +1,5 @@
-import { emit, notify, setDefaultIcon, setIcon } from './main';
+import { emit, notify, setIcon } from './main';
 import { getFolder } from './config';
-import { UPDATE_IMAGES } from './../shared/constants';
 import { nativeImage, clipboard } from 'electron';
 
 import recordGif from './wrappers/byzanz-record';
@@ -13,7 +12,7 @@ const getOutputFile = ext => `${getFolder()}/${new Date().toISOString()}.${ext}`
 
 let endFn = null;
 
-const checkIfRunning = cb => {
+const checkIfRunning = () => {
   if (endFn !== null) {
     return Promise.reject('Session is in progress');
   }
@@ -34,8 +33,6 @@ const takeGif = ({ width, height, x, y }) => {
   return promise
     .then(() => {
       notify('Generated');
-      emit(UPDATE_IMAGES);
-
       openFile(outputFile);
     });
 };
@@ -72,6 +69,5 @@ const takeScreen = ({ x, y, width, height }) => {
   return xwd(width, height, x, y, outputFile)
     .then(() => {
       copyToClipboard(outputFile);
-      emit(UPDATE_IMAGES);
     });
 }

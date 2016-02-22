@@ -1,5 +1,3 @@
-import userHome from 'user-home';
-import fs from 'fs';
 import Configstore from 'configstore';
 
 const conf = new Configstore('journal-desktop', { isFirstRun: true });

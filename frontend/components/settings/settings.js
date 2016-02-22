@@ -2,11 +2,9 @@ import React from 'react';
 import styles from './style.css';
 import remote from 'remote';
 
-import { SELECT_FOLDER, UPDATE_FOLDER } from './../../../shared/constants';
-import { ipcRenderer } from 'electron';
-
 const { register, unregister, actions } = remote.require(process.env.APP_DIR + '/dist/register-shortcuts');
-const { getFolder, path, getCombo, setCombo } = remote.require(process.env.APP_DIR + '/dist/config');
+const { getFolder, setFolder, path, getCombo, setCombo } = remote.require(process.env.APP_DIR + '/dist/config');
+const { selectFolder } = remote.require(process.env.APP_DIR + '/dist/utils');
 
 const Input = React.createClass({
   getInitialState() {
@@ -26,7 +24,7 @@ const Input = React.createClass({
     }
   },
   render() {
-    const { label, action } = this.props;
+    const { label } = this.props;
 
     return (
       <div className={`form-group form-group-lg ${styles.input} ${this.state.isCorrect ? '' : 'has-error'}`}>
@@ -50,16 +48,13 @@ const FolderSelect = React.createClass({
   getInitialState() {
     return { folder: getFolder() };
   },
-  componentDidMount: function() {
-    ipcRenderer.on(UPDATE_FOLDER, () => {
-      this.setState({ folder: getFolder() });
-    });
-  },
-  componentWillUnmount: function() {
-    ipcRenderer.removeAllListeners(UPDATE_FOLDER);
-  },
-  onClick(event) {
-    ipcRenderer.send(SELECT_FOLDER);
+  onClick() {
+    const result = selectFolder();
+
+    if (result) {
+      setFolder(result);
+      this.setState({ folder: result });
+    }
   },
   render() {
     return (

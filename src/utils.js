@@ -1,5 +1,6 @@
 import { exec as _execAsync, spawn as _spawnAsync } from 'child_process';
 import winston from 'winston';
+import { dialog } from 'electron';
 
 export const execAsync = _execAsync;
 export const spawnAsync = _spawnAsync;
@@ -19,7 +20,7 @@ export const exec = (cmd) => {
 };
 
 export const spawn = (cmd, args) => {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     const proc = spawnAsync(cmd, args);
 
     proc.stdout.pipe(process.stdout);
@@ -37,3 +38,8 @@ const logger = new (winston.Logger)({
 });
 
 export const log = logger.info.bind(logger);
+
+export const selectFolder = () => {
+  const result = dialog.showOpenDialog({ properties: [ 'openDirectory' ] });
+  return result && result[0];
+};

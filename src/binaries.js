@@ -1,7 +1,7 @@
 import pify from 'pify';
 
 import whereisCallback from 'whereis';
-const whereis = bin => pify(whereisCallback)(bin).then(null, err => undefined);
+const whereis = bin => pify(whereisCallback)(bin).then(null, () => undefined);
 
 const obj = (name, description) => ({ name, description: (description || '').split('\n') });
 

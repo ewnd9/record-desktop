@@ -1,5 +1,5 @@
 import { globalShortcut } from 'electron';
-import { emit, notify } from './main';
+import { notify } from './main';
 import { log } from './utils';
 
 import {
@@ -7,8 +7,7 @@ import {
   startRecordActive,
   stopRecord,
   screenArea,
-  screenActive,
-  copyToClipboard,
+  screenActive
 } from './record';
 
 import { getCombo } from './config';
