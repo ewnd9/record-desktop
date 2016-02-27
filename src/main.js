@@ -55,16 +55,17 @@ app.on('ready', () => {
     log('restore');
   })
 
+
   mainWindow.on('closed', () => mainWindow = appIcon = null);
 
   appIcon = new Tray(defaultIcon);
   appIcon.on('click', () => {
-    log('click appIcon ' + mainWindow.isMinimized());
+    log('click appIcon ' + mainWindow.isVisible());
 
-    if (mainWindow.isMinimized()) {
+    if (!mainWindow.isVisible()) {
       mainWindow.show();
     } else {
-      mainWindow.minimize();
+      mainWindow.hide();
     }
   });
 
