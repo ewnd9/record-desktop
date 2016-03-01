@@ -2,8 +2,12 @@ import React from 'react';
 import styles from './style.css';
 import remote from 'remote';
 
-const { register, unregister, actions } = remote.require(process.env.APP_DIR + '/dist/shortcuts');
-const { getFolder, setFolder, path, getCombo, setCombo } = remote.require(process.env.APP_DIR + '/dist/config');
+const shortcuts = remote.require(process.env.APP_DIR + '/dist/shortcuts');
+const actions = shortcuts.actions;
+
+const config = remote.require(process.env.APP_DIR + '/dist/config');
+const { getFolder, setFolder, path, getCombo, setCombo } = config;
+
 const { selectFolder } = remote.require(process.env.APP_DIR + '/dist/utils');
 
 const Input = React.createClass({
@@ -11,13 +15,13 @@ const Input = React.createClass({
     return { isCorrect: true, active: getCombo(this.props.action) };
   },
   onKeyPress(event) {
-    unregister(this.state.active);
+    shortcuts.unregister(this.state.active);
 
     const combo = event.target.value;
-    const isCorrect = register(this.props.action, combo);
+    const isCorrect = shortcuts.register(this.props.action, combo);
 
     if (isCorrect) {
-      setCombo(this.props.action, combo);
+      config.setCombo(this.props.action, combo);
       this.setState({ isCorrect, active: combo });
     } else {
       this.setState({ isCorrect });
