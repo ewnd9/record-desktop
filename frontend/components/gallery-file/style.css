@@ -8,6 +8,8 @@
   height: 30px;
   padding: 0 10px;
   color: white;
+
+  display: flex;
 }
 
 .imageBlock {
@@ -25,8 +27,13 @@
 }
 
 .menuIcon {
+  flex: 1;
+  text-align: right;
   position: relative;
-  float: right;
+  line-height: 30px !important;
+}
+
+.menuIcon :global(.glyphicon) {
   line-height: 30px !important;
 }
 

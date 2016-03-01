@@ -19,7 +19,7 @@ export default React.createClass({
 
           <span>{file.filename}</span>
           <span className={`${styles.menuIcon}`}>
-            <span className={`${styles.menuIcon} glyphicon glyphicon-cog`} aria-hidden="true"></span>
+            <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
 
             <div className={styles.fileMenu}>
               <ul>
