@@ -60,7 +60,7 @@ const FolderSelect = React.createClass({
     return (
       <div>
         <button className="btn btn-default" onClick={this.onClick}>
-          { this.state.folder || 'Browse' }
+          { this.state.folder || 'Select a directory to save files' }
         </button>
       </div>
     );

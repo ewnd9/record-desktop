@@ -57,7 +57,12 @@ export const register = (action, combo) => {
 export const registerAll = () => {
   Object.keys(fnMappings).forEach(action => {
     const combo = getCombo(action);
-    register(action, combo);
+
+    if (combo) {
+      register(action, combo);
+    } else {
+      log(`missing shortcut for ${action}`);
+    }
   });
 };
 
