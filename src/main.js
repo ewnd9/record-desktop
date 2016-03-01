@@ -37,8 +37,13 @@ process.on('unhandledRejection', err => {
 
 app.on('ready', () => {
   if (process.env.NODE_ENV === 'production') {
-    mainWindow = new BrowserWindow({ width: 800, height: 900, show: false });
-    mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', 'index.html'));
+    const hasShortcuts = registerShortcuts.hasShortcuts();
+
+    const hash = hasShortcuts ? '' : '#settings';
+    const show = !hasShortcuts;
+
+    mainWindow = new BrowserWindow({ width: 800, height: 900, show });
+    mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', 'index.html') + hash);
   } else {
     mainWindow = new BrowserWindow({ width: 1200, height: 900 });
     mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', 'index-dev.html'));

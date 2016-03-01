@@ -60,5 +60,6 @@ ReactDOM.render(<Router history={history}>
   <Route path="/" component={App}>
     <IndexRoute component={Settings} />
     <Route path="binaries" component={Binaries} />
+    <Route path="settings" component={Settings} />
   </Route>
 </Router>, document.getElementById('root'));
