@@ -2,10 +2,10 @@ import { emit, notify, setIcon } from './main';
 import { getFolder } from './config';
 import { copyToClipboard, openFile } from './utils';
 
-import recordGif from './wrappers/byzanz-record';
-import rectSelect from './wrappers/slop';
-import getActive from './wrappers/xwininfo';
-import xwd from './wrappers/xwd';
+import recordGif from './unix-utils/wrappers/byzanz-record';
+import rectSelect from './unix-utils/wrappers/slop';
+import getActive from './unix-utils/wrappers/xwininfo';
+import xwd from './unix-utils/wrappers/xwd';
 
 const getOutputFile = ext => `${getFolder()}/${new Date().toISOString()}.${ext}`;
 

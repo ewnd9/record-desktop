@@ -15,6 +15,12 @@ $ sudo apt-get install slop imagemagick byzanz
 $ npm install record-desktop -g
 ```
 
+If you don't have `apt-get` or have any troubles follow readmes of projects
+
+- [`slop`](https://github.com/naelstrof/slop)
+- [`imagemagick`](http://manpages.ubuntu.com/manpages/precise/man1/ImageMagick.1.html)
+- [`byzanz`](http://manpages.ubuntu.com/manpages/natty/man1/byzanz-record.1.html)
+
 ## Usage
 
 ```
