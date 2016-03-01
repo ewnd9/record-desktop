@@ -13,7 +13,7 @@ import {
 
 import { NOTIFICATION, OPEN_FILE, COPY_TO_CLIPBOARD } from './../shared/constants';
 
-import * as registerShortcuts from './register-shortcuts';
+import * as registerShortcuts from './shortcuts';
 import { log, copyToClipboard, openFile } from './utils';
 
 export const emit = (event, body) => mainWindow.webContents.send(event, body);

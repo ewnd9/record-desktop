@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './style.css';
 import remote from 'remote';
 
-const { register, unregister, actions } = remote.require(process.env.APP_DIR + '/dist/register-shortcuts');
+const { register, unregister, actions } = remote.require(process.env.APP_DIR + '/dist/shortcuts');
 const { getFolder, setFolder, path, getCombo, setCombo } = remote.require(process.env.APP_DIR + '/dist/config');
 const { selectFolder } = remote.require(process.env.APP_DIR + '/dist/utils');
 
