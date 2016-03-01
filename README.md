@@ -2,9 +2,7 @@
 
 [WIP] Record gifs and take screenshots on linux. An electron application.
 
-Basically it is just a wrapper around console
-[byzanz-record](http://manpages.ubuntu.com/manpages/natty/man1/byzanz-record.1.html)
-with global shortcuts.
+![Demonstration](/demo.gif?raw=true)
 
 Tested on Ubuntu 14.04 in `unity` and `awesome-wm` environments.
 
