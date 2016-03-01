@@ -7,7 +7,8 @@ export default React.createClass({
       file,
       copyToClipboard,
       openFile,
-      onClickDelete
+      onClickDelete,
+      upload
     } = this.props;
 
     const url = `file://${file.url}`;
@@ -23,7 +24,8 @@ export default React.createClass({
 
             <div className={styles.fileMenu}>
               <ul>
-                <li><a onClick={copyToClipboard}>Copy to a clipboard</a></li>
+                <li><a onClick={upload}>Upload to imgur</a></li>
+                <li><a onClick={copyToClipboard}>Copy to clipboard</a></li>
                 <li><a onClick={openFile}>Open in image viewer</a></li>
                 <li><a onClick={onClickDelete}>Delete</a></li>
               </ul>

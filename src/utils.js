@@ -3,6 +3,9 @@ import { dialog } from 'electron';
 
 import fs from 'fs';
 
+import imgur from 'imgur';
+imgur.setClientId('a9e8e4383e6dfa2');
+
 import { nativeImage, clipboard } from 'electron';
 import { notify } from './main';
 
@@ -37,4 +40,14 @@ export const copyToClipboard = file => {
   const image = nativeImage.createFromPath(file);
   clipboard.writeImage(image);
   notify('Copied to Clipboard');
+};
+
+export const uploadFile = file => {
+  notify('Uploading...');
+
+  imgur.uploadFile(file)
+    .then(function (json) {
+      clipboard.writeText(json.data.link);
+      notify('Copied Url to Clipboard');
+    });
 };

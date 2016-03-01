@@ -37,6 +37,7 @@
     "configstore": "^1.4.0",
     "electron-prebuilt": "^0.36.9",
     "globby": "^4.0.0",
+    "imgur": "^0.1.7",
     "lodash": "^3.10.1",
     "mkdirp": "^0.5.1",
     "pify": "^2.3.0",

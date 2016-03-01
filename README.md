@@ -28,7 +28,7 @@ $ record-desktop # put it to autostart
 ## Roadmap
 
 - [x] Gifs/Screenshots Gallery
-- [ ] Upload to imgur and other online services
+- [x] Upload to imgur and other online services
 
 ## Development
 

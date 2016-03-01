@@ -41,7 +41,7 @@
   position: absolute;
   right: 0;
   width: 220px;
-  bottom: 25px;
+  bottom: 20px;
   z-index: 15;
   display: none;
 }
@@ -56,9 +56,14 @@
 }
 
 .fileMenu li {
-  padding: 5px;
+  font-size: 12px;
+  padding: 0 5px;
   background-color: white;
   border: 1px solid #e1e8ed;
   border-radius: 3px;
   margin-top: 2px;
+}
+
+.fileMenu * {
+  font-size: 14px;
 }

@@ -15,11 +15,12 @@ import {
   NOTIFICATION,
   OPEN_FILE,
   COPY_TO_CLIPBOARD,
-  DELETE_FILE
+  DELETE_FILE,
+  UPLOAD
 } from './../shared/constants';
 
 import * as registerShortcuts from './shortcuts';
-import { log, copyToClipboard, openFile, deleteFile } from './utils';
+import { log, copyToClipboard, uploadFile, openFile, deleteFile } from './utils';
 
 export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
@@ -38,6 +39,7 @@ export const setIcon = isRecording => appIcon.setImage(isRecording ? recordingIc
 process.title = 'record-desktop';
 process.on('unhandledRejection', err => {
   log(err.stack);
+  notify(err.stack);
 });
 
 app.on('ready', () => {
@@ -121,6 +123,10 @@ app.on('ready', () => {
 
   ipcMain.on(DELETE_FILE, (event, data) => {
     deleteFile(data);
+  });
+
+  ipcMain.on(UPLOAD, (event, data) => {
+    uploadFile(data);
   });
 
   registerShortcuts.registerAll();

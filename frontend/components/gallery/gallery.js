@@ -10,7 +10,8 @@ import _ from 'lodash';
 import {
   COPY_TO_CLIPBOARD,
   OPEN_FILE,
-  DELETE_FILE
+  DELETE_FILE,
+  UPLOAD
 } from '../../../shared/constants';
 
 import { ipcRenderer } from 'electron';
@@ -68,6 +69,7 @@ export default React.createClass({
             this.state.files.map((file, index) => (
               <GalleryFile key={file.url}
                            file={file}
+                           upload={() => ipcRenderer.send(UPLOAD, file.url)}
                            copyToClipboard={() => ipcRenderer.send(COPY_TO_CLIPBOARD, file.url)}
                            onClickDelete={() => this.onClickDelete(index)}
                            openFile={() => ipcRenderer.send(OPEN_FILE, file.url)} />
