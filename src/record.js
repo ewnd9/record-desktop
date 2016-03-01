@@ -1,12 +1,11 @@
 import { emit, notify, setIcon } from './main';
 import { getFolder } from './config';
-import { nativeImage, clipboard } from 'electron';
+import { copyToClipboard, openFile } from './utils';
 
 import recordGif from './wrappers/byzanz-record';
 import rectSelect from './wrappers/slop';
 import getActive from './wrappers/xwininfo';
 import xwd from './wrappers/xwd';
-import openFile from './wrappers/xdg-open';
 
 const getOutputFile = ext => `${getFolder()}/${new Date().toISOString()}.${ext}`;
 
@@ -52,12 +51,6 @@ export const stopRecord = () => {
   }
 
   return Promise.resolve(true);
-};
-
-export const copyToClipboard = file => {
-  const image = nativeImage.createFromPath(file);
-  clipboard.writeImage(image);
-  notify('Copied to Clipboard');
 };
 
 export const screenActive = () => getActive().then(takeScreen);

@@ -1,6 +1,11 @@
 import { exec as _execAsync, spawn as _spawnAsync } from 'child_process';
 import winston from 'winston';
 import { dialog } from 'electron';
+import fs from 'fs';
+import { nativeImage, clipboard } from 'electron';
+import { notify } from './main';
+
+export openFile from './wrappers/xdg-open';
 
 export const execAsync = _execAsync;
 export const spawnAsync = _spawnAsync;
@@ -42,4 +47,17 @@ export const log = logger.info.bind(logger);
 export const selectFolder = () => {
   const result = dialog.showOpenDialog({ properties: [ 'openDirectory' ] });
   return result && result[0];
+};
+
+export const getFiles = folder => {
+  return fs.readdirSync(folder).sort().reverse().map(filename => ({
+    url: folder + '/' + filename,
+    filename
+  }));
+};
+
+export const copyToClipboard = file => {
+  const image = nativeImage.createFromPath(file);
+  clipboard.writeImage(image);
+  notify('Copied to Clipboard');
 };

@@ -1,0 +1,57 @@
+.label {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  left: 0;
+  line-height: 30px;
+  height: 30px;
+  padding: 0 10px;
+  color: white;
+}
+
+.imageBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.imageBlock img {
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+.menuIcon {
+  position: relative;
+  float: right;
+  line-height: 30px !important;
+}
+
+.fileMenu {
+  position: absolute;
+  right: 0;
+  width: 220px;
+  bottom: 25px;
+  z-index: 15;
+  display: none;
+}
+
+.menuIcon:hover .fileMenu {
+  display: block;
+}
+
+.fileMenu ul {
+  list-style: none;
+  color: initial;
+}
+
+.fileMenu li {
+  padding: 5px;
+  background-color: white;
+  border: 1px solid #e1e8ed;
+  border-radius: 3px;
+  margin-top: 2px;
+}

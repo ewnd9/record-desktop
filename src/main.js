@@ -1,20 +1,20 @@
 import path from 'path';
 import BrowserWindow from 'browser-window';
 
-import openFile from './wrappers/xdg-open';
 import * as config from './config';
 
 import {
   app,
   globalShortcut,
   Tray,
+  ipcMain,
   Menu
 } from 'electron';
 
-import { NOTIFICATION } from './../shared/constants';
+import { NOTIFICATION, OPEN_FILE, COPY_TO_CLIPBOARD } from './../shared/constants';
 
 import * as registerShortcuts from './register-shortcuts';
-import { log } from './utils';
+import { log, copyToClipboard, openFile } from './utils';
 
 export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
@@ -36,30 +36,38 @@ process.on('unhandledRejection', err => {
 });
 
 app.on('ready', () => {
+  const indexProd = 'file://' + path.resolve(__dirname, '..', 'public', 'index.html');
+  const indexDev = 'file://' + path.resolve(__dirname, '..', 'public', 'index-dev.html');
+  const indexHtml = process.env.NODE_ENV === 'production' ? indexProd : indexDev;
+  const indexIdle = 'file://' + path.resolve(__dirname, '..', 'public', 'index-idle.html');
+
   if (process.env.NODE_ENV === 'production') {
     const hasShortcuts = registerShortcuts.hasShortcuts();
 
-    const hash = hasShortcuts ? '' : '#settings';
-    const show = !hasShortcuts;
-
-    mainWindow = new BrowserWindow({ width: 800, height: 900, show });
-    mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', 'index.html') + hash);
+    mainWindow = new BrowserWindow({ width: 800, height: 900, show: !hasShortcuts });
+    mainWindow.loadURL(indexHtml + '#' + hasShortcuts ? '' : '#');
   } else {
-    mainWindow = new BrowserWindow({ width: 1200, height: 900 });
-    mainWindow.loadURL('file://' + path.resolve(__dirname, '..', 'public', 'index-dev.html'));
+    mainWindow = new BrowserWindow({ width: 1200, height: 400 });
+    mainWindow.loadURL(indexHtml);
     mainWindow.openDevTools();
   }
 
+  const offloadContent = () => {
+    mainWindow.loadURL(indexIdle);
+  };
+
   mainWindow.on('minimize', () => {
-    mainWindow.setSkipTaskbar(true)
+    mainWindow.setSkipTaskbar(true);
+    mainWindow.hide();
+
+    offloadContent();
     log('minimize');
   });
 
   mainWindow.on('restore', () => {
     mainWindow.setSkipTaskbar(false);
     log('restore');
-  })
-
+  });
 
   mainWindow.on('closed', () => mainWindow = appIcon = null);
 
@@ -69,16 +77,42 @@ app.on('ready', () => {
 
     if (!mainWindow.isVisible()) {
       mainWindow.show();
+      mainWindow.loadURL(indexHtml + '#');
     } else {
       mainWindow.hide();
+      offloadContent();
     }
   });
 
   appIcon.setContextMenu(Menu.buildFromTemplate([
-    { label: 'Browse Images', click: () => openFile(config.getFolder()) },
+    {
+      label: 'Browse Images',
+      click: () => {
+        mainWindow.show();
+        mainWindow.loadURL(indexHtml + '#');
+      }
+    },
+    {
+      label: 'Open a folder',
+      click: () => openFile(config.getFolder())
+    },
     { type: 'separator' },
-    { label: 'Settings', click: () => mainWindow.show() }
+    {
+      label: 'Settings',
+      click: () => {
+        mainWindow.show();
+        mainWindow.loadURL(indexHtml + '#settings')
+      }
+    }
   ]));
+
+  ipcMain.on(OPEN_FILE, (event, data) => {
+    openFile(data);
+  });
+
+  ipcMain.on(COPY_TO_CLIPBOARD, (event, data) => {
+    copyToClipboard(data);
+  });
 
   registerShortcuts.registerAll();
 });
