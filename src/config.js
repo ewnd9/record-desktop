@@ -1,6 +1,6 @@
 import Configstore from 'configstore';
 
-const conf = new Configstore('journal-desktop', { isFirstRun: true });
+const conf = new Configstore('record-desktop', { isFirstRun: true });
 export const path = conf.path;
 
 export const getFolder = () => conf.get('folder');

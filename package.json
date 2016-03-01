@@ -1,7 +1,7 @@
 {
-  "name": "journal-desktop",
+  "name": "record-desktop",
   "version": "0.0.0",
-  "description": "Record gifs on linux. An electron application",
+  "description": "Record gifs and take screenshots on linux. An electron application",
   "main": "dist/main.js",
   "scripts": {
     "start": "NODE_ENV=development electron ./dist/main.js",
@@ -19,12 +19,12 @@
     "lint": "eslint src/* frontend/**/*.js"
   },
   "bin": {
-    "journal": "app.js"
+    "record-desktop": "app.js"
   },
   "preferGlobal": "true",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ewnd9/journal-desktop.git"
+    "url": "git+https://github.com/ewnd9/record-desktop.git"
   },
   "keywords": [
     "gif",

@@ -30,7 +30,7 @@ const recordingIcon = path.resolve(__dirname + '/../icon-recording.png');
 
 export const setIcon = isRecording => appIcon.setImage(isRecording ? recordingIcon : defaultIcon);
 
-process.title = 'Journal';
+process.title = 'record-desktop';
 process.on('unhandledRejection', err => {
   log(err.stack);
 });

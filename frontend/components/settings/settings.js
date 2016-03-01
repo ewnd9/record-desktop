@@ -92,7 +92,7 @@ export default React.createClass({
             </div>
           </div>
         </section>
-        
+
         <section>
           {
             Object.keys(actions).map(key => {
@@ -104,7 +104,7 @@ export default React.createClass({
 
         <section className={styles.codeContainer}>
           <div>Config:{' '}<span className={styles.code}>{path}</span></div>
-          <div>Logs:{' '}<span className={styles.code}>{'/tmp/journal'}</span></div>
+          <div>Logs:{' '}<span className={styles.code}>{'/tmp/record-desktop'}</span></div>
         </section>
       </div>
     );

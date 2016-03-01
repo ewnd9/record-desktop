@@ -5,7 +5,7 @@ import { ipcRenderer } from 'electron';
 import { NOTIFICATION } from './../shared/constants';
 
 ipcRenderer.on(NOTIFICATION, (event, { text }) => {
-  new Notification('Journal', {
+  new Notification('record-desktop', {
     body: text
   });
 });

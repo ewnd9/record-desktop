@@ -1,18 +1,30 @@
-# journal-desktop
+# record-desktop
 
-[WIP] Record gifs on linux. An electron application
+[WIP] Record gifs and take screenshots on linux. An electron application.
+
+Basically it is just a wrapper around console
+[byzanz-record](http://manpages.ubuntu.com/manpages/natty/man1/byzanz-record.1.html)
+with global shortcuts.
+
+Tested on Ubuntu 14.04 in `unity` and `awesome-wm` environments.
 
 ## Install
 
 ```
-$ npm install journal-desktop -g
+$ sudo apt-get install slop imagemagick byzanz
+$ npm install record-desktop -g
 ```
 
 ## Usage
 
 ```
-$ journal
+$ record-desktop # put it to autostart
 ```
+
+## Roadmap
+
+- [ ] Gifs/Screenshots Gallery
+- [ ] Upload to imgur and other online services
 
 ## Development
 
