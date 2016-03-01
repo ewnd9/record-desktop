@@ -7,12 +7,16 @@ import GalleryFile from '../gallery-file/gallery-file';
 import remote from 'remote';
 import _ from 'lodash';
 
-import { COPY_TO_CLIPBOARD, OPEN_FILE } from '../../../shared/constants';
+import {
+  COPY_TO_CLIPBOARD,
+  OPEN_FILE,
+  DELETE_FILE
+} from '../../../shared/constants';
 
 import { ipcRenderer } from 'electron';
 
 const { getFolder } = remote.require(process.env.APP_DIR + '/dist/config');
-const { getFiles } = remote.require(process.env.APP_DIR + '/dist/utils');
+const { getFiles, deleteFile } = remote.require(process.env.APP_DIR + '/dist/utils');
 
 import detectViewport from './detect-viewport';
 
@@ -42,6 +46,17 @@ export default React.createClass({
   componentWillUnmount() {
     window.onscroll = null;
   },
+  onClickDelete(index) {
+    const file = this.state.files[index];
+    ipcRenderer.send(DELETE_FILE, file.url);
+
+    this.setState({
+      files: [
+        ...this.state.files.slice(0, index),
+        ...this.state.files.slice(index + 1)
+      ]
+    });
+  },
   render() {
     return (
       <div>
@@ -54,6 +69,7 @@ export default React.createClass({
               <GalleryFile key={file.url}
                            file={file}
                            copyToClipboard={() => ipcRenderer.send(COPY_TO_CLIPBOARD, file.url)}
+                           onClickDelete={() => this.onClickDelete(index)}
                            openFile={() => ipcRenderer.send(OPEN_FILE, file.url)} />
             ))
           }

@@ -29,6 +29,10 @@ export const getFiles = folder => {
   }));
 };
 
+export const deleteFile = file => {
+  return fs.unlinkSync(file);
+};
+
 export const copyToClipboard = file => {
   const image = nativeImage.createFromPath(file);
   clipboard.writeImage(image);

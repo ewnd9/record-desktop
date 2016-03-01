@@ -11,10 +11,15 @@ import {
   Menu
 } from 'electron';
 
-import { NOTIFICATION, OPEN_FILE, COPY_TO_CLIPBOARD } from './../shared/constants';
+import {
+  NOTIFICATION,
+  OPEN_FILE,
+  COPY_TO_CLIPBOARD,
+  DELETE_FILE
+} from './../shared/constants';
 
 import * as registerShortcuts from './shortcuts';
-import { log, copyToClipboard, openFile } from './utils';
+import { log, copyToClipboard, openFile, deleteFile } from './utils';
 
 export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
@@ -112,6 +117,10 @@ app.on('ready', () => {
 
   ipcMain.on(COPY_TO_CLIPBOARD, (event, data) => {
     copyToClipboard(data);
+  });
+
+  ipcMain.on(DELETE_FILE, (event, data) => {
+    deleteFile(data);
   });
 
   registerShortcuts.registerAll();

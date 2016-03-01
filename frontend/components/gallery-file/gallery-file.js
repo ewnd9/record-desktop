@@ -3,7 +3,13 @@ import styles from './style.css';
 
 export default React.createClass({
   render() {
-    const { file, copyToClipboard, openFile } = this.props;
+    const {
+      file,
+      copyToClipboard,
+      openFile,
+      onClickDelete
+    } = this.props;
+
     const url = `file://${file.url}`;
 
     return (
@@ -19,6 +25,7 @@ export default React.createClass({
               <ul>
                 <li><a onClick={copyToClipboard}>Copy to a clipboard</a></li>
                 <li><a onClick={openFile}>Open in file manager</a></li>
+                <li><a onClick={onClickDelete}>Delete</a></li>
               </ul>
             </div>
           </span>
