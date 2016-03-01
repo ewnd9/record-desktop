@@ -1,7 +1,7 @@
 {
   "name": "journal-desktop",
   "version": "0.0.0",
-  "description": "",
+  "description": "Record gifs on linux. An electron application",
   "main": "dist/main.js",
   "scripts": {
     "start": "NODE_ENV=development electron ./dist/main.js",
@@ -24,15 +24,18 @@
   "preferGlobal": "true",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ewnd9/journal.git"
+    "url": "git+https://github.com/ewnd9/journal-desktop.git"
   },
   "keywords": [
-    ""
+    "gif",
+    "electron",
+    "linux"
   ],
   "author": "ewnd9 <ewndnine@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "configstore": "^1.4.0",
+    "electron-prebuilt": "^0.36.9",
     "globby": "^4.0.0",
     "mkdirp": "^0.5.1",
     "pify": "^2.3.0",

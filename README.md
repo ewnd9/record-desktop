@@ -1,15 +1,23 @@
-# journal
+# journal-desktop
+
+[WIP] Record gifs on linux. An electron application
 
 ## Install
 
 ```
-$ npm install
+$ npm install journal-desktop -g
 ```
 
 ## Usage
 
 ```
-$ npm run build:watch
+$ journal
+```
+
+## Development
+
+```
+$ npm run build:watch # separate terminal
 $ npm start
 ```
 
