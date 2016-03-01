@@ -1,10 +1,7 @@
-.main {
-  padding: 15px 40px 15px 5px;
+* {
+  font-size: 16px;
 }
 
 .settings-bar {
-  position: fixed;
-  top: 15px;
-  right: 5px;
-  font-size: 30px;
+  display: none;
 }
