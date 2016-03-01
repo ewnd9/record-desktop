@@ -24,7 +24,7 @@ export default React.createClass({
             <div className={styles.fileMenu}>
               <ul>
                 <li><a onClick={copyToClipboard}>Copy to a clipboard</a></li>
-                <li><a onClick={openFile}>Open in file manager</a></li>
+                <li><a onClick={openFile}>Open in image viewer</a></li>
                 <li><a onClick={onClickDelete}>Delete</a></li>
               </ul>
             </div>
