@@ -5,6 +5,7 @@ import { ipcRenderer } from 'electron';
 import { NOTIFICATION } from './../shared/constants';
 
 ipcRenderer.on(NOTIFICATION, (event, { text }) => {
+  console.log(text);
   new Notification('record-desktop', {
     body: text
   });
