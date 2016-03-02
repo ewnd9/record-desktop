@@ -16,8 +16,8 @@ import {
 
 import { ipcRenderer } from 'electron';
 
-const { getFolder } = remote.require(process.env.APP_DIR + '/dist/config');
-const { getFiles, deleteFile } = remote.require(process.env.APP_DIR + '/dist/utils');
+const { getFolder } = remote.require('../dist/config');
+const { getFiles, deleteFile } = remote.require('../dist/utils');
 
 import detectViewport from './detect-viewport';
 

@@ -2,13 +2,13 @@ import React from 'react';
 import styles from './style.css';
 import remote from 'remote';
 
-const shortcuts = remote.require(process.env.APP_DIR + '/dist/shortcuts');
+const shortcuts = remote.require('../dist/shortcuts');
 const actions = shortcuts.actions;
 
-const config = remote.require(process.env.APP_DIR + '/dist/config');
+const config = remote.require('../dist/config');
 const { getFolder, setFolder, path, getCombo, setCombo } = config;
 
-const { selectFolder } = remote.require(process.env.APP_DIR + '/dist/utils');
+const { selectFolder } = remote.require('../dist/utils');
 
 const Input = React.createClass({
   getInitialState() {

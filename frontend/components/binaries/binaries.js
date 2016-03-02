@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './style.css';
 
 import remote from 'remote';
-const remoteBinaries = remote.require(process.env.APP_DIR + '/dist/binaries');
+const remoteBinaries = remote.require('../dist/binaries');
 
 export default React.createClass({
   getInitialState() {

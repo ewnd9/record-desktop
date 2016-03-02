@@ -1,6 +1,8 @@
 require('bootstrap/dist/css/bootstrap.min.css');
 require('./index.css');
 
+console.log('welcome to record-desktop');
+
 import { ipcRenderer } from 'electron';
 import { NOTIFICATION } from './../shared/constants';
 
