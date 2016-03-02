@@ -1,10 +1,19 @@
 # record-desktop
 
-[WIP] Record gifs and take screenshots on linux. An electron application.
+Record gifs and take screenshots on linux, built with electron.
 
 ![Demonstration](/demo.gif?raw=true)
 
 Tested on Ubuntu 14.04 in `unity` and `awesome-wm` environments.
+
+### Featuring
+
+- Record an area
+- Record an active window
+- Take a screenshot of an area
+- Take a screenshot of an active window
+- Preview gallery
+- Upload to imgur
 
 ## Install
 
@@ -22,18 +31,13 @@ If you don't have `apt-get` or have any troubles follow readmes of projects
 ## Usage
 
 ```
-$ record-desktop # put it to autostart
+$ record-desktop
 ```
-
-## Roadmap
-
-- [x] Gifs/Screenshots Gallery
-- [x] Upload to imgur and other online services
 
 ## Development
 
 ```
-$ npm run build:watch # separate terminal
+$ npm run build:watch
 $ npm start
 ```
 
