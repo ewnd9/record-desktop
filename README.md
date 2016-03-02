@@ -18,9 +18,14 @@ Tested on Ubuntu 14.04 in `unity` and `awesome-wm` environments.
 ## Install
 
 ```
+$ sudo add-apt-repository ppa:nilarimogard/webupd8 && sudo apt-get update
 $ sudo apt-get install slop imagemagick byzanz
 $ npm install record-desktop -g
 ```
+
+:warning: `nilarimogard/webupd8` is needed for the `slop` package,
+check http://www.webupd8.org/ to know more about webupd8. If you don't want to add
+external repository, install `slop` from sources from a link below
 
 If you don't have `apt-get` or have any troubles follow readmes of projects
 
