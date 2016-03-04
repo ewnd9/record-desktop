@@ -64,8 +64,6 @@ export const registerAll = () => {
 
     if (combo) {
       register(action, combo);
-    } else {
-      log(`missing shortcut for ${action}`);
     }
   });
 };
