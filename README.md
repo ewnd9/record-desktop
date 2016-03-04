@@ -8,12 +8,20 @@ Tested on Ubuntu 14.04 in `unity` and `awesome-wm` environments.
 
 ### Featuring
 
-- Record an area
-- Record an active window
-- Take a screenshot of an area
-- Take a screenshot of an active window
+- Recording a gif
+  1. Start recording an area or an active window by a hotkey.
+  1. Stop by a hotkey, get a generated gif file opened via `xdg-open` (commonly in a image viewer).
+  1. Drag & drop it into an input in a browser (currently there is a problem with copy/paste to/from the clipboard, follow [issue#8](https://github.com/ewnd9/record-desktop/issues/8) for details).
+- Taking a screenshot
+  1. Take a screenshot of an area or an active window by a hotkey.
+  1. Get a screenshot copied in the clipboard.
+  1. Paste it into into an input in a browser.
 - Preview gallery
 - Upload to imgur
+
+All files are persisted in customizable location.
+
+All hotkeys are customizable in settings.
 
 ## Install
 
