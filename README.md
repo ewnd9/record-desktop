@@ -13,7 +13,7 @@ Tested on Ubuntu 14.04 in `unity` and `awesome-wm` environments.
   1. Stop by a hotkey, get a generated gif file opened via `xdg-open` (commonly in a image viewer).
   1. Drag & drop it into an input in a browser (currently there is a problem with copy/paste to/from the clipboard, follow [issue#8](https://github.com/ewnd9/record-desktop/issues/8) for details).
 - Taking a screenshot
-  1. Take a screenshot of an area or an active window by a hotkey.
+  1. Take a screenshot of an area or an active window by a hotkey (with cool mac os like shadow). 
   1. Get a screenshot copied in the clipboard.
   1. Paste it into into an input in a browser.
 - Preview gallery

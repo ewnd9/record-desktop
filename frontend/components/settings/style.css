@@ -35,3 +35,13 @@
   background-color: rgba(0,0,0,0.04);
   border-radius: 3px;
 }
+
+.shadowSelectContainer label {
+  font-weight: normal;
+}
+
+.shadowSelectContainer select {
+  width: 50%;
+  margin: 15px auto 0;
+  text-align: center;
+}

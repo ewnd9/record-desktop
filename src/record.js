@@ -1,5 +1,5 @@
 import { emit, notify, setIcon } from './main';
-import { getFolder } from './config';
+import { getFolder, getScreenshotEffect } from './config';
 import { copyToClipboard, openFile } from './utils';
 
 import recordGif from './unix-utils/wrappers/byzanz-record';
@@ -59,7 +59,7 @@ export const screenArea = () => rectSelect().then(takeScreen);
 const takeScreen = ({ x, y, width, height }) => {
   const outputFile = getOutputFile('png');
 
-  return xwd(width, height, x, y, outputFile)
+  return xwd(width, height, x, y, outputFile, getScreenshotEffect())
     .then(() => {
       copyToClipboard(outputFile);
     });

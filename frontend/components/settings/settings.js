@@ -6,7 +6,7 @@ const shortcuts = remote.require('../dist/shortcuts');
 const actions = shortcuts.actions;
 
 const config = remote.require('../dist/config');
-const { getFolder, setFolder, path, getCombo, setCombo } = config;
+const { getFolder, setFolder, getScreenshotEffect, setScreenshotEffect, path, getCombo, setCombo } = config;
 
 const { selectFolder } = remote.require('../dist/utils');
 
@@ -71,6 +71,29 @@ const FolderSelect = React.createClass({
   }
 });
 
+const ShadowSelect = React.createClass({
+  getInitialState: () => ({ value: getScreenshotEffect() }),
+  onChange(e) {
+    const value = e.target.value;
+    setScreenshotEffect(value);
+
+    this.setState({ value });
+  },
+  render() {
+    return (
+      <div>
+        <div className="form-group">
+          <label htmlFor="sel1">Screenshot effect</label>
+          <select className="form-control" id="sel1" value={this.state.value} onChange={this.onChange}>
+            <option value="shadow">Shadow</option>
+            <option value="none">None</option>
+          </select>
+        </div>
+      </div>
+    );
+  }
+});
+
 export default React.createClass({
   getInitialState() {
     return { actions };
@@ -109,6 +132,10 @@ export default React.createClass({
         <section className={styles.codeContainer}>
           <div>Config:{' '}<span className={styles.code}>{path}</span></div>
           <div>Logs:{' '}<span className={styles.code}>{'/tmp/record-desktop'}</span></div>
+        </section>
+
+        <section className={styles.shadowSelectContainer}>
+          <ShadowSelect />
         </section>
       </div>
     );
