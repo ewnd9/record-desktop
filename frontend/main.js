@@ -3,16 +3,6 @@ require('./index.css');
 
 console.log('welcome to record-desktop');
 
-import { ipcRenderer } from 'electron';
-import { NOTIFICATION } from './../shared/constants';
-
-ipcRenderer.on(NOTIFICATION, (event, { text }) => {
-  console.log(text);
-  new Notification('record-desktop', {
-    body: text
-  });
-});
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';

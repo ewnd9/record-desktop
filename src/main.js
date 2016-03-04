@@ -1,6 +1,6 @@
 import path from 'path';
 import BrowserWindow from 'browser-window';
-
+import notifier from 'node-notifier';
 import * as config from './config';
 
 import {
@@ -25,7 +25,11 @@ import { log, copyToClipboard, uploadFile, openFile, deleteFile } from './utils'
 export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
   log(text, err || '');
-  emit(NOTIFICATION, { text });
+
+  notifier.notify({
+    title: 'record-desktop',
+    message: text + (err ? ' ' + err.message : '')
+  });
 };
 
 let mainWindow;
