@@ -30,8 +30,8 @@ const App = React.createClass({
             this.state.path === '/' && (
               <div>
                 <div>
-                  <Link to={`/binaries`}>
-                    <span className="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                  <Link to={`/settings`}>
+                    <span className="glyphicon glyphicon-cog" aria-hidden="true"></span>
                   </Link>
                 </div>
               </div>

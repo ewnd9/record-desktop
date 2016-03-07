@@ -9,7 +9,13 @@ html, body {
 }
 
 .settings-bar {
-  display: none;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+.main {
+  padding-right: 30px;
 }
 
 a {
