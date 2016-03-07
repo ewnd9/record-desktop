@@ -114,6 +114,10 @@ app.on('ready', () => {
         mainWindow.show();
         mainWindow.loadURL(indexHtml + '#settings')
       }
+    },
+    {
+      label: 'Exit',
+      click: () => app.quit()
     }
   ]));
 
