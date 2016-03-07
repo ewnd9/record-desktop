@@ -42,6 +42,7 @@
     "mkdirp": "^0.5.1",
     "node-notifier": "^4.5.0",
     "pify": "^2.3.0",
+    "pretty-bytes": "^3.0.1",
     "whereis": "^0.4.0",
     "winston": "^2.1.1"
   },

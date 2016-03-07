@@ -24,12 +24,19 @@ import detectViewport from './detect-viewport';
 export default React.createClass({
   getInitialState: () => ({ files: [] }),
   componentDidMount() {
-    this.setState({
-      files: getFiles(getFolder()).map((file, index) => ({
-        ...file,
-        visible: index < 10
-      }))
-    });
+    getFiles(getFolder())
+      .then(files => {
+        this.setState({
+          files: files.map((file, index) => ({
+            ...file,
+            visible: index < 10
+          }))
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        new Notification('record-desktop', { body: err.stack });
+      });
 
     const onPageScroll = () => {
       const visibility = detectViewport('.imageBlock');

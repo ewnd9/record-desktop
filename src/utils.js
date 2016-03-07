@@ -1,7 +1,12 @@
 import winston from 'winston';
 import { dialog } from 'electron';
+import pify from 'pify';
+import prettyBytes from 'pretty-bytes';
 
 import fs from 'fs';
+
+const stat = pify(fs.stat);
+const readdir = pify(fs.readdir);
 
 import imgur from 'imgur';
 imgur.setClientId('a9e8e4383e6dfa2');
@@ -26,10 +31,26 @@ export const selectFolder = () => {
 };
 
 export const getFiles = folder => {
-  return fs.readdirSync(folder).sort().reverse().map(filename => ({
-    url: folder + '/' + filename,
-    filename
-  }));
+  let files;
+
+  return readdir(folder)
+    .then(_files => {
+      files = _files;
+      return Promise.all(files.map(file => stat(`${folder}/${file}`)));
+    })
+    .then(stats => {
+      stats.forEach((stat, i) => {
+        files[i] = {
+          url: folder + '/' + files[i],
+          filename: files[i],
+          mtime: stat.mtime,
+          size: prettyBytes(stat.size)
+        }
+      });
+
+      files.sort((a, b) => b.mtime - a.mtime);
+      return files;
+    });
 };
 
 export const deleteFile = file => {
