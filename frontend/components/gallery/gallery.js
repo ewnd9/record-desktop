@@ -7,23 +7,24 @@ import GalleryFile from '../gallery-file/gallery-file';
 import remote from 'remote';
 import _ from 'lodash';
 
+import { ipcRenderer } from 'electron';
+
 import {
   COPY_TO_CLIPBOARD,
   OPEN_FILE,
   DELETE_FILE,
-  UPLOAD
+  UPLOAD,
+  NEW_FILE
 } from '../../../shared/constants';
-
-import { ipcRenderer } from 'electron';
-
-const { getFolder } = remote.require('../dist/config');
-const { getFiles, deleteFile } = remote.require('../dist/utils');
 
 import detectViewport from './detect-viewport';
 
 export default React.createClass({
   getInitialState: () => ({ files: [] }),
-  componentDidMount() {
+  getFiles() {
+    const { getFiles } = remote.require('../dist/utils');
+    const { getFolder } = remote.require('../dist/config');
+
     getFiles(getFolder())
       .then(files => {
         this.setState({
@@ -37,6 +38,9 @@ export default React.createClass({
         console.log(err);
         new Notification('record-desktop', { body: err.stack });
       });
+  },
+  componentDidMount() {
+    this.getFiles();
 
     const onPageScroll = () => {
       const visibility = detectViewport('.imageBlock');
@@ -49,10 +53,12 @@ export default React.createClass({
       });
     };
 
+    ipcRenderer.on(NEW_FILE, () => this.getFiles());
     window.onscroll = _.debounce(onPageScroll, 50, { trailing: true });
   },
   componentWillUnmount() {
     window.onscroll = null;
+    ipcRenderer.removeAllListeners(NEW_FILE);
   },
   onClickDelete(index) {
     const file = this.state.files[index];
