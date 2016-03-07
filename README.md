@@ -58,6 +58,10 @@ $ npm start
 
 ## Changelog
 
+- `v0.4.0`
+  - quick actions against latest files in the tray menu
+  - auto refresh the gallery on new files creation
+  - display size and resolutions of files in the gallery 
 - `v0.3.0`
   - the mac os like shadow effect for screenshots
 
