@@ -1,3 +1,6 @@
+import EventEmitter from 'events';
+export const eventEmitter = new EventEmitter();
+
 import Configstore from 'configstore';
 
 const conf = new Configstore('record-desktop', { isFirstRun: true });

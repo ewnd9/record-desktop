@@ -16,11 +16,12 @@ import {
   OPEN_FILE,
   COPY_TO_CLIPBOARD,
   DELETE_FILE,
-  UPLOAD
+  UPLOAD,
+  NEW_FILE
 } from './../shared/constants';
 
 import * as registerShortcuts from './shortcuts';
-import { log, copyToClipboard, uploadFile, openFile, deleteFile } from './utils';
+import { log, copyToClipboard, uploadFile, openFile, deleteFile, getFiles } from './utils';
 
 export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
@@ -95,31 +96,59 @@ app.on('ready', () => {
     }
   });
 
-  appIcon.setContextMenu(Menu.buildFromTemplate([
-    {
-      label: 'Browse Images',
-      click: () => {
-        mainWindow.show();
-        mainWindow.loadURL(indexHtml + '#');
-      }
-    },
-    {
-      label: 'Open a folder',
-      click: () => openFile(config.getFolder())
-    },
-    { type: 'separator' },
-    {
-      label: 'Settings',
-      click: () => {
-        mainWindow.show();
-        mainWindow.loadURL(indexHtml + '#settings')
-      }
-    },
-    {
-      label: 'Exit',
-      click: () => app.quit()
-    }
-  ]));
+  const updateTrayMenu = () => getFiles(config.getFolder())
+    .then(files => {
+      appIcon.setContextMenu(Menu.buildFromTemplate([
+        {
+          label: 'Latest',
+          submenu: files.slice(0, 5)
+            .map(file => ({
+              label: file.filename,
+              submenu: [
+                {
+                  label: 'Upload to imgur',
+                  click: () => uploadFile(file.url)
+                },
+                {
+                  label: 'Delete',
+                  click: () => deleteFile(file.url)
+                }
+              ]
+            }))
+        },
+        {
+          label: 'Browse Images',
+          click: () => {
+            mainWindow.show();
+            mainWindow.loadURL(indexHtml + '#');
+          }
+        },
+        {
+          label: 'Open a folder',
+          click: () => openFile(config.getFolder())
+        },
+        { type: 'separator' },
+        {
+          label: 'Settings',
+          click: () => {
+            mainWindow.show();
+            mainWindow.loadURL(indexHtml + '#settings')
+          }
+        },
+        {
+          label: 'Exit',
+          click: () => app.quit()
+        }
+      ]));
+    })
+    .catch(err => console.log(err.stack));
+
+  updateTrayMenu();
+
+  config.eventEmitter.on(NEW_FILE, () => {
+    updateTrayMenu();
+    emit(NEW_FILE);
+  });
 
   ipcMain.on(OPEN_FILE, (event, data) => {
     openFile(data);
@@ -131,6 +160,7 @@ app.on('ready', () => {
 
   ipcMain.on(DELETE_FILE, (event, data) => {
     deleteFile(data);
+    updateTrayMenu();
   });
 
   ipcMain.on(UPLOAD, (event, data) => {

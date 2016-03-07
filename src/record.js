@@ -1,6 +1,7 @@
 import { emit, notify, setIcon } from './main';
-import { getFolder, getScreenshotEffect } from './config';
+import { getFolder, getScreenshotEffect, eventEmitter } from './config';
 import { copyToClipboard, openFile } from './utils';
+import { NEW_FILE } from '../shared/constants';
 
 import recordGif from './unix-utils/wrappers/byzanz-record';
 import rectSelect from './unix-utils/wrappers/slop';
@@ -33,6 +34,7 @@ const takeGif = ({ width, height, x, y }) => {
     .then(() => {
       notify('Generated');
       openFile(outputFile);
+      eventEmitter.emit(NEW_FILE);
     });
 };
 
@@ -62,5 +64,6 @@ const takeScreen = ({ x, y, width, height }) => {
   return xwd(width, height, x, y, outputFile, getScreenshotEffect())
     .then(() => {
       copyToClipboard(outputFile);
+      eventEmitter.emit(NEW_FILE);
     });
 }
