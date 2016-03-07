@@ -18,22 +18,24 @@ var plugins = [
   new webpack.IgnorePlugin(new RegExp("^(fs|electron-prebuilt)$"))
 ];
 
-if (process.env.NODE_ENV === 'production') {
-  // plugins.push(
-  //   new webpack.optimize.UglifyJsPlugin({
-  //     compressor: {
-  //       screw_ie8: true,
-  //       warnings: false
-  //     }
-  //   })
-  // );
+var isProd = process.env.NODE_ENV === 'production';
+
+if (isProd) {
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    })
+  );
 }
 
 var config = {
   entry: {
     app: './frontend/main.js'
   },
-  devtool: 'cheap-module-source-map',
+  devtool: isProd ? 'source-map' : 'cheap-module-source-map',
   output: {
     filename: '[name].bundle.js',
     sourceMapFilename: '[file].map',

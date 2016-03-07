@@ -5,9 +5,13 @@ export default React.createClass({
   getInitialState: () => ({ resolution: '' }),
   getResolution() {
     setTimeout(() => {
-      this.setState({
-        resolution: `${this.refs.img.naturalWidth}x${this.refs.img.naturalHeight}`
-      });
+      if (this.refs.img.naturalWidth === 0) {
+        this.getResolution();
+      } else {
+        this.setState({
+          resolution: `${this.refs.img.naturalWidth}x${this.refs.img.naturalHeight}`
+        });
+      }
     }, 100);
   },
   componentDidMount() {
