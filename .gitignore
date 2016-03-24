@@ -8,3 +8,4 @@ play.js
 !/public/index-dev.html
 !/public/index-idle.html
 t1.js
+dist-pkg

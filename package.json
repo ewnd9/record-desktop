@@ -16,7 +16,9 @@
     "build:frontend:watch": "webpack-dev-server",
     "prepublish": "npm run build",
     "electron": "NODE_ENV=development electron ./dist/main.js",
-    "lint": "eslint src/* frontend/**/*.js"
+    "lint": "eslint src/* frontend/**/*.js",
+    "build:electron-pkg": "rm -rf dist-pkg && npm run build && electron-packager . record-desktop --platform linux --arch x64 --out dist-pkg/",
+    "build:electron-deb": "npm run build:electron-pkg && electron-installer-debian --src dist-pkg/record-desktop-linux-x64/ --dest dist-pkg/installers/ --arch amd64"
   },
   "bin": {
     "record-desktop": "app.js"
@@ -58,6 +60,8 @@
     "babel-preset-stage-0": "^6.3.13",
     "bootstrap": "^3.3.6",
     "css-loader": "^0.23.1",
+    "electron-installer-debian": "^0.2.0",
+    "electron-packager": "^5.2.1",
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.16.1",
     "file-loader": "^0.8.5",

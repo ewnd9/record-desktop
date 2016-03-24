@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'development') {
+  process.env.NODE_ENV = 'production';
+}
+
 import path from 'path';
 import BrowserWindow from 'browser-window';
 import notifier from 'node-notifier';
