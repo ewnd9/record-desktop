@@ -31,6 +31,10 @@ export const selectFolder = () => {
 };
 
 export const getFiles = folder => {
+  if (!folder) {
+    return Promise.resolve([]);
+  }
+  
   let files;
 
   return readdir(folder)

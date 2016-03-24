@@ -55,7 +55,7 @@ export const register = (action, combo) => {
 };
 
 export const hasShortcuts = () => {
-  return Object.keys(fnMappings).filter(action => !!getCombo(action));
+  return Object.keys(fnMappings).filter(action => !!getCombo(action)).length > 0;
 };
 
 export const registerAll = () => {

@@ -57,7 +57,7 @@ app.on('ready', () => {
     const hasShortcuts = registerShortcuts.hasShortcuts();
 
     mainWindow = new BrowserWindow({ width: 800, height: 900, show: !hasShortcuts });
-    mainWindow.loadURL(indexHtml + '#' + hasShortcuts ? '' : '#');
+    mainWindow.loadURL(indexHtml + '#' + (hasShortcuts ? '' : 'settings'));
   } else {
     mainWindow = new BrowserWindow({ width: 1200, height: 400 });
     mainWindow.loadURL(indexHtml);
