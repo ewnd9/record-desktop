@@ -2,6 +2,11 @@
 
 set -e
 
+rm -rf node_modules
+
+npm install --production
+npm install electron-packager electron-installer-debian
+
 npm run build:electron-deb
 
 release=$(echo $TRAVIS_TAG | awk '{print substr($1,2);}')
