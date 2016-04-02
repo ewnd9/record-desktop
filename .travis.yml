@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - '5'
-before_deploy: "npm run build:electron-deb"
+before_deploy: "sh deploy-travis.sh"
 deploy:
   provider: releases
   api_key:
