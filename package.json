@@ -35,6 +35,7 @@
   ],
   "files": [
     "dist",
+    "shared",
     "public",
     "app.js",
     "cat.sh",
