@@ -1,6 +1,6 @@
 {
   "name": "record-desktop",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Record gifs and take screenshots on linux, built with electron.",
   "main": "dist/main.js",
   "scripts": {
