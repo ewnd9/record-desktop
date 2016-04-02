@@ -17,8 +17,8 @@
     "prepublish": "npm run build",
     "electron": "NODE_ENV=development electron ./dist/main.js",
     "lint": "eslint src/* frontend/**/*.js",
-    "build:electron-pkg": "rm -rf dist-pkg && electron-packager . record-desktop --platform linux --arch x64 --out dist-pkg/",
-    "build:electron-deb": "npm run build:electron-pkg && electron-installer-debian --src dist-pkg/record-desktop-linux-x64/ --dest dist-pkg/installers/ --arch amd64 --ignore \"node_modules/electron.*\""
+    "build:electron-pkg": "rm -rf dist-pkg && electron-packager . record-desktop --platform linux --arch x64 --out dist-pkg/ --ignore \"node_modules/electron.*\"",
+    "build:electron-deb": "npm run build:electron-pkg && electron-installer-debian --src dist-pkg/record-desktop-linux-x64/ --dest dist-pkg/installers/ --arch amd64"
   },
   "bin": {
     "record-desktop": "app.js"
