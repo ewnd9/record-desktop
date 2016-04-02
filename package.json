@@ -33,6 +33,14 @@
     "electron",
     "linux"
   ],
+  "files": [
+    "dist",
+    "public",
+    "app.js",
+    "cat.sh",
+    "icon.png",
+    "icon-recording.png"
+  ],
   "author": "ewnd9 <ewndnine@gmail.com>",
   "license": "MIT",
   "dependencies": {
