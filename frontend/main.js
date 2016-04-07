@@ -13,20 +13,12 @@ import Gallery from './components/gallery/gallery';
 const history = hashHistory;
 
 const App = React.createClass({
-  getInitialState() {
-    return { path: '/' }
-  },
-  componentDidMount() {
-    history.listen(path => {
-      this.setState({ path: path.pathname });
-    });
-  },
   render() {
     return (
       <div>
         <div className="settings-bar">
           {
-            this.state.path === '/' && (
+            this.props.location.pathname === '/' && (
               <div>
                 <div>
                   <Link to={`/settings`}>
