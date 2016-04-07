@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
 
 import Settings from './components/settings/settings';
-import Binaries from './components/binaries/binaries';
 import Gallery from './components/gallery/gallery';
 
 const history = hashHistory;
@@ -53,7 +52,6 @@ const App = React.createClass({
 ReactDOM.render(<Router history={history}>
   <Route path="/" component={App}>
     <IndexRoute component={Gallery} />
-    <Route path="binaries" component={Binaries} />
     <Route path="settings" component={Settings} />
   </Route>
 </Router>, document.getElementById('root'));
