@@ -3,6 +3,13 @@ import './style.css';
 
 console.log('welcome to record-desktop');
 
+const context = require('electron-contextmenu-middleware');
+
+context.use(require('electron-input-menu'));
+context.use(require('electron-image-menu'));
+
+context.activate();
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';

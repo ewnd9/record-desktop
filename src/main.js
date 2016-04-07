@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'development') {
 
 import path from 'path';
 import BrowserWindow from 'browser-window';
+import saveFile from 'electron-save-file';
 import notifier from 'node-notifier';
 import * as config from './config';
 
@@ -116,6 +117,10 @@ app.on('ready', () => {
                 {
                   label: 'Delete',
                   click: () => deleteFile(file.url)
+                },
+                {
+                  label: 'Save as',
+                  click: () => saveFile(file.url)
                 }
               ]
             }))
