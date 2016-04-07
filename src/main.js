@@ -58,14 +58,15 @@ app.on('ready', () => {
   const indexHtml = process.env.NODE_ENV === 'production' ? indexProd : indexDev;
   const indexIdle = 'file://' + path.resolve(__dirname, '..', 'public', 'index-idle.html');
 
-  if (process.env.NODE_ENV === 'production') {
-    const hasShortcuts = registerShortcuts.hasShortcuts();
+  const hasShortcuts = registerShortcuts.hasShortcuts();
+  const initUrl = indexHtml + '#' + (hasShortcuts ? '' : 'settings');
 
+  if (process.env.NODE_ENV === 'production') {
     mainWindow = new BrowserWindow({ width: 800, height: 900, show: !hasShortcuts });
-    mainWindow.loadURL(indexHtml + '#' + (hasShortcuts ? '' : 'settings'));
+    mainWindow.loadURL(initUrl);
   } else {
     mainWindow = new BrowserWindow({ width: 1200, height: 400 });
-    mainWindow.loadURL(indexHtml);
+    mainWindow.loadURL(initUrl);
     mainWindow.openDevTools();
   }
 
