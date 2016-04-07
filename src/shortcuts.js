@@ -1,6 +1,7 @@
 import { globalShortcut } from 'electron';
 import { notify } from './main';
 import { log } from './utils';
+import { getFolder } from './config';
 
 import {
   startRecordArea,
@@ -44,7 +45,12 @@ export const register = (action, combo) => {
   try {
     const result = globalShortcut.register(combo, () => {
       log(`press ${combo}`); // it won't work if i delete this line (GC?)
-      return fnMappings[action]().catch(err => notify('Error', err));
+
+      if (!getFolder()) {
+        notify('Output folder is not set');
+      } else {
+        return fnMappings[action]().catch(err => notify('Error', err));
+      }
     });
 
     log(`${combo} register success: ${result}`);
