@@ -1,5 +1,5 @@
-require('bootstrap/dist/css/bootstrap.min.css');
-require('./index.css');
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './style.css';
 
 console.log('welcome to record-desktop');
 
