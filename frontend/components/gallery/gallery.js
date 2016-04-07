@@ -19,6 +19,11 @@ import {
 
 import detectViewport from './detect-viewport';
 
+// const inputMenu = require('electron-input-menu');
+// const context = require('electron-contextmenu-middleware');
+// context.use(inputMenu);
+// context.activate();
+
 export default React.createClass({
   getInitialState: () => ({ files: [] }),
   getFiles() {

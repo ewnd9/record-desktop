@@ -62,6 +62,10 @@ var config = {
         loader: "file?name=[name].[ext]"
       },
       {
+        test: /\.json$/,
+        loader: "json"
+      },
+      {
         test: function(file) {
           return file.indexOf('.css') > -1 && file.indexOf('components') === -1;
         },

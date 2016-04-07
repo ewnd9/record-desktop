@@ -16,6 +16,8 @@ const App = React.createClass({
   render() {
     return (
       <div>
+        <img src="https://avatars1.githubusercontent.com/u/11197111?v=3&s=96" />
+
         <div className="settings-bar">
           {
             this.props.location.pathname === '/' && (

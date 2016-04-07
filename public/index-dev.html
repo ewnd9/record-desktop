@@ -2,6 +2,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>record-desktop</title>
+	<script>
+	const inputMenu = require('electron-input-menu');
+	const context = require('electron-contextmenu-middleware');
+  context.use(inputMenu);
+  context.activate();
+	</script>
 </head>
 <body>
 	<div id="root">Loading...</div>
