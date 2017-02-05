@@ -1,7 +1,7 @@
-import { notify, setIcon } from './main';
+import { notify } from './logger';
 import { getFolder, getScreenshotEffect, eventEmitter } from './config';
 import { copyToClipboard, openFile } from './utils';
-import { NEW_FILE } from '../shared/constants';
+import { NEW_FILE, SET_APP_ICON } from '../shared/constants';
 
 import recordGif from './unix-utils/wrappers/byzanz-record';
 import rectSelect from './unix-utils/wrappers/slop';
@@ -28,7 +28,7 @@ const takeGif = ({ width, height, x, y }) => {
   notify(`Start`);
   endFn = finish;
 
-  setIcon(true);
+  eventEmitter.emit(SET_APP_ICON, true);
 
   return promise
     .then(() => {
@@ -47,7 +47,7 @@ export const stopRecord = () => {
     endFn = null;
     notify('Finish');
 
-    setIcon(false);
+    eventEmitter.emit(SET_APP_ICON, false);
   } else {
     notify('Already finished');
   }

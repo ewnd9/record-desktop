@@ -1,4 +1,3 @@
-import winston from 'winston';
 import { dialog } from 'electron';
 import pify from 'pify';
 import prettyBytes from 'pretty-bytes';
@@ -12,18 +11,9 @@ import imgur from 'imgur';
 imgur.setClientId('a9e8e4383e6dfa2');
 
 import { nativeImage, clipboard } from 'electron';
-import { notify } from './main';
+import { notify } from './logger';
 
 export openFile from './unix-utils/wrappers/xdg-open';
-
-const logger = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Console)(),
-    new (winston.transports.File)({ filename: '/tmp/record-desktop' })
-  ]
-});
-
-export const log = logger.info.bind(logger);
 
 export const selectFolder = () => {
   const result = dialog.showOpenDialog({ properties: [ 'openDirectory' ] });
@@ -34,7 +24,7 @@ export const getFiles = folder => {
   if (!folder) {
     return Promise.resolve([]);
   }
-  
+
   let files;
 
   return readdir(folder)

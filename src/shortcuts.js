@@ -1,6 +1,5 @@
 import { globalShortcut } from 'electron';
-import { notify } from './main';
-import { log } from './utils';
+import { log, notify } from './logger';
 import { getFolder } from './config';
 
 import {
