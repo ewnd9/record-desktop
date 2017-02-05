@@ -31,10 +31,12 @@ export const emit = (event, body) => mainWindow.webContents.send(event, body);
 export const notify = (text, err) => {
   log(text, err || '');
 
-  notifier.notify({
-    title: 'record-desktop',
-    message: text + (err ? ' ' + err.message : '')
-  });
+  if (config.getHasNotifications()) {
+    notifier.notify({
+      title: 'record-desktop',
+      message: text + (err ? ' ' + err.message : '')
+    });
+  }
 };
 
 let mainWindow;

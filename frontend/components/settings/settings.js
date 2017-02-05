@@ -6,6 +6,7 @@ import remote from 'remote';
 import ShortcutInput from './shortcut-input';
 import FolderSelect from './folder-select';
 import ShadowSelect from './shadow-select';
+import HasNotificationsInput from './has-notifications-input';
 
 export default React.createClass({
   render() {
@@ -49,6 +50,10 @@ export default React.createClass({
 
         <section className={styles.shadowSelectContainer}>
           <ShadowSelect />
+        </section>
+
+        <section>
+          <HasNotificationsInput />
         </section>
       </div>
     );
