@@ -18,6 +18,8 @@ import {
 
 import detectViewport from './detect-viewport';
 
+const devConsole = console;
+
 export default React.createClass({
   getInitialState: () => ({ files: [] }),
   getFiles() {
@@ -34,7 +36,7 @@ export default React.createClass({
         });
       })
       .catch(err => {
-        console.log(err);
+        devConsole.log(err);
         new Notification('record-desktop', { body: err.stack });
       });
   },
