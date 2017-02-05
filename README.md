@@ -4,7 +4,7 @@ Record gifs and take screenshots on linux, built with electron.
 
 ![Demonstration](/media/demo.gif?raw=true)
 
-Tested on Ubuntu 14.04 in `unity` and `awesome-wm` environments.
+Tested on Ubuntu 14.04 and Ubuntu 16.04 in `unity` and `awesome-wm` environments.
 
 ### Featuring
 
@@ -25,7 +25,7 @@ All hotkeys are customizable in settings.
 
 ## Install
 
-```
+```sh
 $ sudo add-apt-repository ppa:nilarimogard/webupd8 && sudo apt-get update
 $ sudo apt-get install slop imagemagick byzanz
 $ npm install record-desktop -g
@@ -43,7 +43,7 @@ If you don't have `apt-get` or have any troubles follow readmes of projects
 
 ## Usage
 
-```
+```sh
 $ record-desktop
 ```
 
@@ -51,19 +51,21 @@ Just put it to autostart
 
 ## Development
 
-```
+```sh
 $ npm run build:watch
 $ npm start
 ```
 
 ## Building production
 
-```
+```sh
 $ npm run build:electron-deb
 ```
 
 ## Changelog
 
+- `v0.5.0`
+  - make notifications optional
 - `v0.4.0`
   - quick actions against latest files in the tray menu
   - auto refresh the gallery on new files creation
@@ -79,8 +81,8 @@ is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
 
 ## Related
 
-- [electron-recorder](https://github.com/mikolalysenko/electron-recorder) Low-level desktop recorder based on `ffmpeg`
-
+- [electron-recorder](https://github.com/mikolalysenko/electron-recorder) - Low-level desktop recorder based on `ffmpeg`
+- [archlinux wiki](https://wiki.archlinux.org/index.php/taking_a_screenshot) - List of screenshot apps
 ## License
 
 MIT © [ewnd9](http://ewnd9.com)
