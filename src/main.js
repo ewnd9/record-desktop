@@ -17,7 +17,6 @@ import {
 } from 'electron';
 
 import {
-  NOTIFICATION,
   OPEN_FILE,
   COPY_TO_CLIPBOARD,
   DELETE_FILE,
@@ -39,7 +38,16 @@ export const notify = (text, err) => {
 };
 
 let mainWindow;
+
+const indexProd = 'file://' + path.resolve(__dirname, '..', 'public', 'index.html');
+const indexDev = 'file://' + path.resolve(__dirname, '..', 'public', 'index-dev.html');
+const indexHtml = process.env.NODE_ENV === 'production' ? indexProd : indexDev;
+const indexIdle = 'file://' + path.resolve(__dirname, '..', 'public', 'index-idle.html');
+
 const getMainWindow = () => {
+  const hasShortcuts = registerShortcuts.hasShortcuts();
+  const initUrl = indexHtml + '#' + (hasShortcuts ? '' : 'settings');
+
   if (mainWindow) {
     return mainWindow;
   } else if (process.env.NODE_ENV === 'production') {
@@ -69,14 +77,6 @@ process.on('unhandledRejection', err => {
 });
 
 app.on('ready', () => {
-  const indexProd = 'file://' + path.resolve(__dirname, '..', 'public', 'index.html');
-  const indexDev = 'file://' + path.resolve(__dirname, '..', 'public', 'index-dev.html');
-  const indexHtml = process.env.NODE_ENV === 'production' ? indexProd : indexDev;
-  const indexIdle = 'file://' + path.resolve(__dirname, '..', 'public', 'index-idle.html');
-
-  const hasShortcuts = registerShortcuts.hasShortcuts();
-  const initUrl = indexHtml + '#' + (hasShortcuts ? '' : 'settings');
-
   mainWindow = getMainWindow();
 
   const offloadContent = () => {
@@ -105,7 +105,7 @@ app.on('ready', () => {
   appIcon = new Tray(defaultIcon);
   appIcon.on('click', () => {
     const mainWindow = getMainWindow();
-    
+
     log('click appIcon ' + mainWindow.isVisible());
 
     if (!mainWindow.isVisible()) {

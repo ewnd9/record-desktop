@@ -1,6 +1,5 @@
 // https://github.com/joshwnj/react-visibility-sensor/blob/v3.0.0/visibility-sensor.js#L73-L127
 export default function(className) {
-  const fullHeight = document.body.scrollHeight;
   const top = document.body.scrollTop;
   const bottom = top + document.body.clientHeight;
 

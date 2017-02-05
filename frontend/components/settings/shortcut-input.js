@@ -6,8 +6,6 @@ import remote from 'remote';
 export default React.createClass({
   getInitialState() {
     const { getCombo } = remote.require('../dist/config');
-    const shortcuts = remote.require('../dist/shortcuts');
-
     return { isCorrect: true, active: getCombo(this.props.action) };
   },
   onKeyPress(event) {

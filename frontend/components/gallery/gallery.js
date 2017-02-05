@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './style.css';
 
 import ComponentGallery from 'react-component-gallery';
 import GalleryFile from '../gallery-file/gallery-file';

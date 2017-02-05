@@ -33,8 +33,6 @@ export default React.createClass({
       upload
     } = this.props;
 
-    const url = `file://${file.url}`;
-
     return (
       <div className={`imageBlock ${styles.imageBlock}`}>
         <img ref="img" src={file.visible ? file.url : ''} />

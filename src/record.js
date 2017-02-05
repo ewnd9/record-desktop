@@ -1,4 +1,4 @@
-import { emit, notify, setIcon } from './main';
+import { notify, setIcon } from './main';
 import { getFolder, getScreenshotEffect, eventEmitter } from './config';
 import { copyToClipboard, openFile } from './utils';
 import { NEW_FILE } from '../shared/constants';
