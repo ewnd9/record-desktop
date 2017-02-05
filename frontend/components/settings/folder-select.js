@@ -1,6 +1,6 @@
 import React from 'react';
 
-import remote from 'remote';
+import { remote } from 'electron';
 
 export default React.createClass({
   getInitialState() {

@@ -78,7 +78,7 @@ $ npm start
 ## Building production
 
 ```sh
-$ npm run build:electron-deb
+$ npm run build:electron-deb && sudo dpkg -i dist-pkg/installers/*.deb
 ```
 
 ## Changelog

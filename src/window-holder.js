@@ -1,8 +1,8 @@
 import path from 'path';
-import BrowserWindow from 'browser-window';
 import saveFile from 'electron-save-file';
 
 import {
+  BrowserWindow,
   Tray,
   Menu
 } from 'electron';

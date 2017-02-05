@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './style.css';
 
-import remote from 'remote';
+import { remote } from 'electron';
 
 import ShortcutInput from './shortcut-input';
 import FolderSelect from './folder-select';
