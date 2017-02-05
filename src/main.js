@@ -39,6 +39,22 @@ export const notify = (text, err) => {
 };
 
 let mainWindow;
+const getMainWindow = () => {
+  if (mainWindow) {
+    return mainWindow;
+  } else if (process.env.NODE_ENV === 'production') {
+    const ret = new BrowserWindow({ width: 800, height: 900, show: !hasShortcuts });
+    ret.loadURL(initUrl);
+
+    return ret;
+  } else {
+    const ret = new BrowserWindow({ width: 1200, height: 400 });
+    ret.loadURL(initUrl);
+    ret.openDevTools();
+
+    return ret;
+  }
+};
 let appIcon;
 
 const defaultIcon = path.resolve(__dirname + '/../icon.png');
@@ -61,20 +77,15 @@ app.on('ready', () => {
   const hasShortcuts = registerShortcuts.hasShortcuts();
   const initUrl = indexHtml + '#' + (hasShortcuts ? '' : 'settings');
 
-  if (process.env.NODE_ENV === 'production') {
-    mainWindow = new BrowserWindow({ width: 800, height: 900, show: !hasShortcuts });
-    mainWindow.loadURL(initUrl);
-  } else {
-    mainWindow = new BrowserWindow({ width: 1200, height: 400 });
-    mainWindow.loadURL(initUrl);
-    mainWindow.openDevTools();
-  }
+  mainWindow = getMainWindow();
 
   const offloadContent = () => {
     mainWindow.loadURL(indexIdle);
   };
 
   mainWindow.on('minimize', () => {
+    const mainWindow = getMainWindow();
+
     mainWindow.setSkipTaskbar(true);
     mainWindow.hide();
 
@@ -83,6 +94,8 @@ app.on('ready', () => {
   });
 
   mainWindow.on('restore', () => {
+    const mainWindow = getMainWindow();
+
     mainWindow.setSkipTaskbar(false);
     log('restore');
   });
@@ -91,6 +104,8 @@ app.on('ready', () => {
 
   appIcon = new Tray(defaultIcon);
   appIcon.on('click', () => {
+    const mainWindow = getMainWindow();
+    
     log('click appIcon ' + mainWindow.isVisible());
 
     if (!mainWindow.isVisible()) {
