@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "scripts": {
     "start": "NODE_ENV=development electron ./dist/main.js",
-    "test": "ava",
+    "test": "ava 'src/**/*.spec.js'",
     "test:watch": "nodemon --exec ava",
     "prebuild": "rm -rf dist && mkdir dist",
     "build": "npm-run-all --parallel build:electron build:frontend",
@@ -22,6 +22,11 @@
   },
   "bin": {
     "record-desktop": "app.js"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
   },
   "preferGlobal": "true",
   "repository": {
@@ -59,7 +64,7 @@
     "winston": "^2.1.1"
   },
   "devDependencies": {
-    "ava": "^0.13.0",
+    "ava": "^0.18.2",
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
     "babel-eslint": "^5.0.0",
@@ -83,6 +88,7 @@
     "lodash": "^4.5.0",
     "nodemon": "^1.8.1",
     "npm-run-all": "^1.4.0",
+    "proxyquire": "^1.7.11",
     "react": "^0.14.6",
     "react-component-gallery": "^1.2.1",
     "react-dom": "^0.14.6",
