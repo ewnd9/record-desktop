@@ -25,10 +25,29 @@ All hotkeys are customizable in settings.
 
 ## Install
 
+First install the dependencies
+
 ```sh
 $ sudo add-apt-repository ppa:nilarimogard/webupd8 && sudo apt-get update
 $ sudo apt-get install slop imagemagick byzanz
-$ npm install record-desktop -g
+```
+
+Then `record-desktop` itself by either Debian package or npm
+
+### Debian package
+
+Download the latest `deb` release from https://github.com/ewnd9/record-desktop/releases
+
+Use `dpkg`
+
+```sh
+$ sudo dpkg -i record-desktop_v*_amd64.deb
+```
+
+### npm
+
+```sh
+$ npm install record-desktop -global
 ```
 
 :warning: `nilarimogard/webupd8` is needed for the `slop` package,
