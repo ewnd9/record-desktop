@@ -51,6 +51,7 @@
   "license": "MIT",
   "dependencies": {
     "configstore": "^1.4.0",
+    "electron-localshortcut": "^1.1.1",
     "electron-prebuilt": "^0.36.9",
     "electron-save-file": "^1.0.2",
     "globby": "^4.0.0",
