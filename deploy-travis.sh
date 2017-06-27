@@ -2,9 +2,12 @@
 
 set -e
 
-rm -rf node_modules
+npm install
+npm run build
 
-npm install --production
+rm -rf node_modules
+npm install --production # prevent packaging devDependencies
+
 npm install electron-packager electron-installer-debian
 
 npm run build:electron-deb
