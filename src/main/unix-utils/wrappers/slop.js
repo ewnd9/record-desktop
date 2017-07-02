@@ -1,5 +1,5 @@
 import { exec } from '../utils';
-import { log } from '../../utils';
+import { log } from '../../logger';
 
 export default function slop() {
   return exec('slop -f "%g"').then(res => {

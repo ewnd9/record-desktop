@@ -24,8 +24,8 @@ export default class WindowHolder {
     this.hasShortcuts = registerShortcuts.hasShortcuts();
     this.initUrl = this.indexHtml + '#' + (this.hasShortcuts ? '' : 'settings');
 
-    this.defaultIcon = path.resolve(__dirname + '/../icon.png');
-    this.recordingIcon = path.resolve(__dirname + '/../icon-recording.png');
+    this.defaultIcon = path.resolve(__dirname + '/../public/images/icon.png');
+    this.recordingIcon = path.resolve(__dirname + '/../public/images/icon-recording.png');
 
     this.mainWindow;
     this.appIcon;
