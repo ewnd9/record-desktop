@@ -25,8 +25,10 @@
   },
   "ava": {
     "require": [
-      "babel-register"
-    ]
+      "babel-register",
+      "babel-polyfill"
+    ],
+    "babel": "inherit"
   },
   "preferGlobal": "true",
   "repository": {
@@ -68,7 +70,7 @@
     "winston": "^2.1.1"
   },
   "devDependencies": {
-    "ava": "^0.18.2",
+    "ava": "^0.20.0",
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
     "babel-eslint": "^5.0.0",

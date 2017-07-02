@@ -28,9 +28,14 @@ All hotkeys are customizable in settings.
 First install the dependencies
 
 ```sh
-$ sudo add-apt-repository ppa:nilarimogard/webupd8 && sudo apt-get update
 $ sudo apt-get install slop imagemagick byzanz
 ```
+
+If you don't have `apt-get` or have any troubles follow readmes of projects
+
+- [`slop`](https://github.com/naelstrof/slop)
+- [`imagemagick`](http://manpages.ubuntu.com/manpages/precise/man1/ImageMagick.1.html)
+- [`byzanz`](http://manpages.ubuntu.com/manpages/natty/man1/byzanz-record.1.html)
 
 Then `record-desktop` itself by either Debian package or npm
 
@@ -47,18 +52,8 @@ $ sudo dpkg -i record-desktop_v*_amd64.deb
 ### npm
 
 ```sh
-$ npm install record-desktop -global
+$ npm install record-desktop --global
 ```
-
-:warning: `nilarimogard/webupd8` is needed for the `slop` package,
-check http://www.webupd8.org/ to know more about webupd8. If you don't want to add
-external repository, install `slop` from sources from a link below
-
-If you don't have `apt-get` or have any troubles follow readmes of projects
-
-- [`slop`](https://github.com/naelstrof/slop)
-- [`imagemagick`](http://manpages.ubuntu.com/manpages/precise/man1/ImageMagick.1.html)
-- [`byzanz`](http://manpages.ubuntu.com/manpages/natty/man1/byzanz-record.1.html)
 
 ## Usage
 
