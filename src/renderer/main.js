@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
-console.log('welcome to record-desktop');
+const devConsole = console;
+devConsole.log('welcome to record-desktop');
 
 const context = require('electron-contextmenu-middleware');
 

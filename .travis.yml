@@ -1,12 +1,18 @@
 language: node_js
 node_js:
-  - '5'
-before_deploy: "sh deploy-travis.sh"
+  - '6'
+script:
+  - yarn install
+  - yarn test
+  - yarn lint
+  - yarn build
+  - npm run build:electron-deb # empty node_modules with `yarn build:electron-deb`
+  - mv dist-pkg/installers/record-desktop_*_amd64.deb record-desktop_${TRAVIS_TAG}_amd64.deb
 deploy:
   provider: releases
   api_key:
     secure: ZwfHOM1xpdJjeA8ydQZ3GnVEIaeyeBTAzVQErkAHdaZnCM9CR6f5Fz808PQtv4ibfDXs5/xvpbX5Y9R9ikrv7SYDx3LeMprYs+vbhIdh4s/ofggAern8BnJllfrzi+8FAiWfQfeWJ/0VSH0XF7B2sZwCu00uhX4xFazli2KxJGs1nesTQrQWOXSNrKoaUo6B0cAnvDf9oBMKNPQ400OQEavOe1YG2yp96VUcknZhLpYe4aW5DcNgWH3Gwcb5ek818x+9Cg+m3UScPcUmzUmCJZc+Ixc7R+CM/hHZZQYofmB4IbqGqoQEAdtFMaY/pX+/NWkXgDcoWob3/RnNrOxFF+xejkL/gG8QfX44/wy75Quzlg7qUbnmwB6BkvDZRwaiitCLX8/Dv7C8HyTVMNYipeOjxL1nGIuavXUR9Tyyt+TxG+InR9F8KklC4XNdi4H4TAJAfkBWGZsmCIiaUsVlojjfNUR48aNlPljCvFANT9DqjmQdxtQG7VGawdC75oujA5g18mxNumbRy55/WWjf1BY08SUuz2h31AwqBEHkk3Urk9VgC82mxFyCxo2Y1xDaqwWUgVdZuTzw4D5D92LCxmN0CoQsPsKIk7BLVNGKehSC/Mnsgx2JGFnpwRK0tZ9SP+Hd+Ak4hfq712XiVOgI6XptOqnLrq6xt30lcqev4SY=
-  file: "dist-pkg/installers/record-desktop_${TRAVIS_TAG}_amd64.deb"
+  file: "record-desktop_${TRAVIS_TAG}_amd64.deb"
   skip_cleanup: true
   on:
     tags: true

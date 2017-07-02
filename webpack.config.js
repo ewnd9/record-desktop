@@ -33,13 +33,13 @@ if (isProd) {
 
 var config = {
   entry: {
-    app: './frontend/main.js'
+    app: './src/renderer/main.js'
   },
   devtool: isProd ? 'source-map' : 'cheap-module-source-map',
   output: {
     filename: '[name].bundle.js',
     sourceMapFilename: '[file].map',
-    path: './public'
+    path: __dirname + '/src/public'
   },
   resolve: {
     root: [

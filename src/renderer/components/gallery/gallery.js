@@ -3,8 +3,8 @@ import React from 'react';
 import ComponentGallery from 'react-component-gallery';
 import GalleryFile from '../gallery-file/gallery-file';
 
-import remote from 'remote';
-import _ from 'lodash';
+import { remote } from 'electron';
+import debounce from 'lodash/debounce';
 
 import { ipcRenderer } from 'electron';
 
@@ -17,6 +17,8 @@ import {
 } from '../../../shared/constants';
 
 import detectViewport from './detect-viewport';
+
+const devConsole = console;
 
 export default React.createClass({
   getInitialState: () => ({ files: [] }),
@@ -34,7 +36,7 @@ export default React.createClass({
         });
       })
       .catch(err => {
-        console.log(err);
+        devConsole.log(err);
         new Notification('record-desktop', { body: err.stack });
       });
   },
@@ -53,7 +55,7 @@ export default React.createClass({
     };
 
     ipcRenderer.on(NEW_FILE, () => this.getFiles());
-    window.onscroll = _.debounce(onPageScroll, 50, { trailing: true });
+    window.onscroll = debounce(onPageScroll, 50, { trailing: true });
   },
   componentWillUnmount() {
     window.onscroll = null;
