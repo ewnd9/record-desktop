@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const electronPath = require('electron-prebuilt');
+const electronPath = require('electron');
 const childProcess = require('child_process');
 
 const args = process.argv.slice(2);

@@ -2,10 +2,8 @@ language: node_js
 node_js:
   - '6'
 script:
-  - yarn install
   - yarn test
   - yarn lint
-  - yarn build
   - npm run build:electron-deb # empty node_modules with `yarn build:electron-deb`
   - mv dist-pkg/installers/record-desktop_*_amd64.deb record-desktop_${TRAVIS_TAG}_amd64.deb
 deploy:
