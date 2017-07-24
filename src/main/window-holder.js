@@ -163,6 +163,15 @@ export default class WindowHolder {
             }
           },
           {
+            label: 'Toggle DevTools',
+            accelerator: 'Ctrl+Shift+I',
+            click: () => {
+              this.mainWindow.show();
+              this.mainWindow.loadURL(this.indexHtml + '#');
+              this.mainWindow.toggleDevTools();
+            }
+          },
+          {
             label: 'Exit',
             click: () => this.app.quit()
           }
