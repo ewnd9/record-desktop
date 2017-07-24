@@ -5,6 +5,9 @@ if (process.env.NODE_ENV !== 'development') {
 import { eventEmitter } from './config';
 import WindowHolder from './window-holder';
 
+import electronDebug from 'electron-debug';
+electronDebug({ enabled: true });
+
 import { app, globalShortcut, ipcMain } from 'electron';
 
 import {

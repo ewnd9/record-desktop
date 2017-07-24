@@ -97,6 +97,7 @@ is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
 
 - [electron-recorder](https://github.com/mikolalysenko/electron-recorder) - Low-level desktop recorder based on `ffmpeg`
 - [archlinux wiki](https://wiki.archlinux.org/index.php/taking_a_screenshot) - List of screenshot apps
+
 ## License
 
 MIT © [ewnd9](http://ewnd9.com)
