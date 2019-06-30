@@ -31,7 +31,7 @@
     ],
     "babel": "inherit"
   },
-  "preferGlobal": "true",
+  "preferGlobal": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ewnd9/record-desktop.git"
@@ -48,6 +48,9 @@
   ],
   "author": "ewnd9 <ewndnine@gmail.com>",
   "license": "MIT",
+  "resolutions": {
+    "electron/**/sumchecker": "2.0.2"
+  },
   "dependencies": {
     "configstore": "^1.4.0",
     "electron": "^1.6.11",

@@ -4,5 +4,5 @@ import { exec } from '../utils';
 const shadow = '\\( +clone -background black -shadow 80x20+0+15 \\) +swap -background transparent -layers merge +repage';
 
 export default function xwd(width, height, x, y, outputFile, effect) {
-  return exec(`xwd -silent -root | convert - -crop ${width}x${height}+${x}+${y} ${effect === 'shadow' ? shadow : ''} ${outputFile}`);
+  return exec(`xwd -silent -root | convert xwd:- -crop ${width}x${height}+${x}+${y} ${effect === 'shadow' ? shadow : ''} ${outputFile}`);
 };
