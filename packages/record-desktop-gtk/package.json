@@ -1,0 +1,9 @@
+{
+  "name": "record-desktop-gtk",
+  "version": "0.5.9",
+  "description": "Record gifs and take screenshots on Linux",
+  "main": "dist/lib.js",
+  "scripts": {
+    "build": "../../node_modules/.bin/webpack --config webpack.config.js"
+  }
+}

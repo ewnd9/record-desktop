@@ -1,0 +1,38 @@
+{
+  "name": "record-desktop-electron",
+  "version": "0.5.9",
+  "description": "Record gifs and take screenshots on linux, built with electron.",
+  "main": "dist/main.js",
+  "dependencies": {
+    "configstore": "^3.1.2",
+    "delay": "^2.0.0",
+    "electron-contextmenu-middleware": "^1.0.3",
+    "electron-image-menu": "^2.0.0",
+    "electron-input-menu": "^2.1.0",
+    "electron-localshortcut": "^3.1.0",
+    "electron-save-file": "^1.0.2",
+    "globby": "^8.0.1",
+    "imgur": "^0.2.1",
+    "lodash": "^4.17.15",
+    "mkdirp": "^0.5.1",
+    "node-notifier": "^5.2.1",
+    "pify": "^3.0.0",
+    "pretty-bytes": "^4.0.2",
+    "record-desktop": "0.5.9",
+    "whereis": "^1.0.0",
+    "winston": "^2.4.1"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development electron ./dist/main.js",
+    "test": "ava 'src/**/*.spec.js'",
+    "test:watch": "nodemon --exec ava",
+    "electron": "NODE_ENV=development electron ./dist/main.js",
+    "prebuild": "rm -rf src/dist && mkdir src/dist",
+    "build": "run-p build:electron build:frontend",
+    "build:watch": "run-p build:electron:watch build:frontend:watch",
+    "build:electron": "babel -d dist src/main",
+    "build:electron:watch": "babel --watch -d dist src/main",
+    "build:frontend": "NODE_ENV=production webpack",
+    "build:frontend:watch": "webpack-dev-server"
+  }
+}
