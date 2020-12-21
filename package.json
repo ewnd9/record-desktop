@@ -63,7 +63,7 @@
     "imgur": "^0.1.7",
     "lodash": "^4.5.0",
     "mkdirp": "^0.5.1",
-    "node-notifier": "^4.5.0",
+    "node-notifier": "^8.0.1",
     "pify": "^2.3.0",
     "pretty-bytes": "^3.0.1",
     "whereis": "^0.4.0",
